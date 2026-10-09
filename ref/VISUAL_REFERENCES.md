@@ -1,50 +1,54 @@
-# Original Sega Genesis screenshots — selected set
+# Original Sega Genesis / Mega Drive visual reference catalogue
 
-The six references below are **specific original Genesis screenshot pages** (two per game), not fan art or modern remakes. Follow each link to view the actual image. These are **externally hosted images**, not PNG files committed to this repository. MobyGames labels the captures as 320×224 Genesis screenshots; original-download access may require a MobyPlus account.
+**Research target:** Road Rash (1991), Road Rash II (1992), Road Rash 3 (1995). **Primary reference:** Road Rash 3.
 
-| Game | Reference | Original screenshot page | What to study |
+This index contains **19 individually identified Genesis screenshot pages** (5 / 6 / 8). Each URL points to a specific image's source page rather than an ambiguous gallery. Captions are from source-page descriptions. **No third-party screenshot binaries are included in this repository.** Images remain with their publishers/hosts; the source gallery does not grant redistribution rights. Original-size downloads may require a MobyGames account or subscription.
+
+| Game | Screenshot | Source page | Design reference |
 |---|---|---|---|
-| Road Rash (1991) | RR1-01: Redwood Forest race start | [Genesis screenshot #28887](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28887/) | Chase camera, pseudo-3D road projection, riders, scenery |
-| Road Rash (1991) | RR1-02: Bike shop | [Genesis screenshot #28890](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28890/) | Motorcycle purchase presentation, typography and bike artwork |
-| Road Rash II (1992) | RR2-01: Riding in Alaska | [Genesis screenshot #175250](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175250/) | Road depth, bike sprite, environment and HUD |
-| Road Rash II (1992) | RR2-02: Rider confrontation | [Genesis screenshot #175253](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175253/) | Rider interaction and combat presentation |
-| Road Rash 3 (1995) | RR3-01: Bike shop and upgrades | [Genesis screenshot #63476](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63476/) | Buying motorcycles, upgrading, shop UI |
-| Road Rash 3 (1995) | RR3-02: Race start in Kenya | [Genesis screenshot #63482](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63482/) | Race camera, track art, opponents, HUD |
+| Road Rash (1991) | Title screen | [Screenshot 28885](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28885/) | Title and typography |
+| Road Rash (1991) | Track selection | [Screenshot 28886](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28886/) | Campaign menu |
+| Road Rash (1991) | Redwood Forest start | [Screenshot 28887](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28887/) | Road perspective |
+| Road Rash (1991) | Grass Valley traffic | [Screenshot 28888](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28888/) | Traffic and environment |
+| Road Rash (1991) | Crash / rider injury | [Screenshot 28892](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28892/) | Failure feedback |
+| Road Rash II (1992) | Title screen | [Screenshot 142046](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/142046/) | Branding |
+| Road Rash II (1992) | Motorcycle selection | [Screenshot 175244](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175244/) | Bike roster |
+| Road Rash II (1992) | Alaska riding | [Screenshot 175250](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175250/) | Road rendering |
+| Road Rash II (1992) | Rider confrontation | [Screenshot 175253](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175253/) | Combat |
+| Road Rash II (1992) | Hawaii downhill | [Screenshot 175254](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175254/) | Hills and perspective |
+| Road Rash II (1992) | Race victory | [Screenshot 175255](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175255/) | Results |
+| Road Rash 3 (1995) | Bike shop / upgrades | [Screenshot 63476](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63476/) | Economy and upgrades |
+| Road Rash 3 (1995) | Track selection | [Screenshot 63477](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63477/) | Campaign UI |
+| Road Rash 3 (1995) | Advancement requirement | [Screenshot 63478](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63478/) | Progression |
+| Road Rash 3 (1995) | Opponent taunt | [Screenshot 63479](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63479/) | Character presentation |
+| Road Rash 3 (1995) | Weapon combat | [Screenshot 63481](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63481/) | Combat animation |
+| Road Rash 3 (1995) | Kenya race start | [Screenshot 63482](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63482/) | Race perspective |
+| Road Rash 3 (1995) | Police bust | [Screenshot 63484](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63484/) | Police consequences |
+| Road Rash 3 (1995) | Lost motorcycle at night | [Screenshot 63485](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63485/) | Crash and atmosphere |
 
-**Licensing / repository status:** These screenshots are copyrighted third-party images. Their appearance on a public gallery does not grant redistribution rights. Do not download and commit the actual image binaries without permission from the relevant rights holders or another applicable legal basis. This catalogue stores source links only.
+## Complete platform-filtered galleries
+- [Road Rash — Genesis](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/) — source gallery reports 8 screenshots.
+- [Road Rash II — Genesis](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/) — source gallery reports 19 screenshots.
+- [Road Rash 3 — Genesis](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/) — source gallery reports 10 screenshots.
 
----
+## Coverage and intended use
+- **Pseudo-3D roads:** RR1 Redwood Forest and Grass Valley; RR2 Alaska and Hawaii; RR3 Kenya.
+- **Combat and weapons:** RR2 confrontation; RR3 weapon combat.
+- **Economy and garage:** RR2 motorcycle selection; RR3 shop/upgrades.
+- **Campaign and progression:** RR1 track selection; RR3 track selection and advancement.
+- **Failure states and police:** RR1 crash; RR3 bust and lost motorcycle.
+- **UI and characters:** titles, race results and taunts.
 
-# Visual reference catalogue
+## Provenance and legal status
+All links are external, to publicly accessible descriptive screenshot pages. The game art and captures may be subject to copyright and website terms. Before checking actual image files into a public repository, obtain authorization or confirm another applicable legal basis and record it alongside each file. Linking to the images is not the same as having redistribution permission.
 
-**Primary visual target:** Road Rash 3 (1995) on Sega Genesis / Mega Drive. Cross-check platform labels before choosing an image: 3DO, PlayStation, Windows and remakes use substantially different presentation. Links below point to **source galleries or game records**, not bundled image files. A gallery link does not establish permission to redistribute or use its contents commercially.
+## Recommended local layout once permission is obtained
+```text
+ref/images/
+  road-rash-1/
+  road-rash-2/
+  road-rash-3/
+  SOURCES.md   # per-file original URL, author, license and permission
+```
 
-## Source galleries
-
-| ID | Target | Source | Capture guidance |
-|---|---|---|---|
-| RR3-01 | Road Rash 3 race road and rider | [MobyGames Road Rash 3 screenshots](https://www.mobygames.com/game/12343/road-rash-3/screenshots/) | Select a Genesis gameplay frame with horizon, roadway, bike and HUD |
-| RR3-02 | Road Rash 3 combat and opponents | [MobyGames Road Rash 3 screenshots](https://www.mobygames.com/game/12343/road-rash-3/screenshots/) | Find adjacent riders, weapon pose or attack animation |
-| RR3-03 | Road Rash 3 garage / upgrades | [MobyGames Road Rash 3 screenshots](https://www.mobygames.com/game/12343/road-rash-3/screenshots/) | Look for motorcycle selection, stats, repairs or purchase |
-| RR3-04 | Road Rash 3 world/track selection | [MobyGames Road Rash 3 screenshots](https://www.mobygames.com/game/12343/road-rash-3/screenshots/) | Record track names, menu hierarchy and selected state |
-| RR3-05 | Road Rash 3 race results | [MobyGames Road Rash 3 screenshots](https://www.mobygames.com/game/12343/road-rash-3/screenshots/) | Record placing, prize and progression indicators |
-| RR2-01 | Road Rash II racing / HUD | [MobyGames Road Rash II](https://www.mobygames.com/game/798/road-rash-ii/) | Open Genesis screenshots; compare sprite size and UI |
-| RR2-02 | Road Rash II multiplayer | [MobyGames Road Rash II](https://www.mobygames.com/game/798/road-rash-ii/) | Locate split-screen material and confirm platform |
-| RR1-01 | Original Road Rash perspective | [MobyGames Road Rash](https://www.mobygames.com/game/797/road-rash/) | Open Genesis screenshots; compare palette and road curvature |
-
-## Image capture checklist
-For each chosen image record: ID, game/version, platform, source page URL, direct image URL if permitted, visible objects, camera angle, HUD elements, color palette, and license/permission status. Do not treat a game-gallery URL as a direct downloadable asset.
-
-## Visual decomposition
-- **Road:** converging lane edges, horizontal strips, road markings, changing curvature and hills.
-- **Motorcycles:** rear-view player sprite, opponent variants, lean states, attack/fall animations.
-- **Characters:** rider silhouettes, helmets, jackets, police, weapons, hit reactions.
-- **Environment:** roadside signs, trees, buildings, vehicles, road hazards and sky.
-- **HUD:** speed, rank, progress and race-related status as visible in the selected version.
-- **Menus:** high-contrast typography, motorcycle display, stat panels, track map, prize/results screens.
-
-## Rights and provenance
-Road Rash graphics and screenshots are third-party copyrighted material. Use links and analytical descriptions for research. Do not copy original sprites or screenshots into a distributed game without appropriate rights. Create original production assets inspired by the high-level design language instead.
-
-## Known limitations
-Gallery URLs are reference entry points; individual screenshots, their availability and usage rights have **not** been exhaustively verified. Some categories may require gameplay capture to obtain an exact matching frame.
+Do not substitute AI-generated approximations for originals or silently download website previews as if they were licensed assets.
