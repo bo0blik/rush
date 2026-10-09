@@ -1,3 +1,20 @@
+# Original Sega Genesis screenshots — selected set
+
+The six references below are **specific original Genesis screenshot pages** (two per game), not fan art or modern remakes. Follow each link to view the actual image. These are **externally hosted images**, not PNG files committed to this repository. MobyGames labels the captures as 320×224 Genesis screenshots; original-download access may require a MobyPlus account.
+
+| Game | Reference | Original screenshot page | What to study |
+|---|---|---|---|
+| Road Rash (1991) | RR1-01: Redwood Forest race start | [Genesis screenshot #28887](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28887/) | Chase camera, pseudo-3D road projection, riders, scenery |
+| Road Rash (1991) | RR1-02: Bike shop | [Genesis screenshot #28890](https://www.mobygames.com/game/353/road-rash/screenshots/genesis/28890/) | Motorcycle purchase presentation, typography and bike artwork |
+| Road Rash II (1992) | RR2-01: Riding in Alaska | [Genesis screenshot #175250](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175250/) | Road depth, bike sprite, environment and HUD |
+| Road Rash II (1992) | RR2-02: Rider confrontation | [Genesis screenshot #175253](https://www.mobygames.com/game/6642/road-rash-ii/screenshots/genesis/175253/) | Rider interaction and combat presentation |
+| Road Rash 3 (1995) | RR3-01: Bike shop and upgrades | [Genesis screenshot #63476](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63476/) | Buying motorcycles, upgrading, shop UI |
+| Road Rash 3 (1995) | RR3-02: Race start in Kenya | [Genesis screenshot #63482](https://www.mobygames.com/game/12343/road-rash-3/screenshots/genesis/63482/) | Race camera, track art, opponents, HUD |
+
+**Licensing / repository status:** These screenshots are copyrighted third-party images. Their appearance on a public gallery does not grant redistribution rights. Do not download and commit the actual image binaries without permission from the relevant rights holders or another applicable legal basis. This catalogue stores source links only.
+
+---
+
 # Visual reference catalogue
 
 **Primary visual target:** Road Rash 3 (1995) on Sega Genesis / Mega Drive. Cross-check platform labels before choosing an image: 3DO, PlayStation, Windows and remakes use substantially different presentation. Links below point to **source galleries or game records**, not bundled image files. A gallery link does not establish permission to redistribute or use its contents commercially.
