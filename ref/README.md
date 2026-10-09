@@ -8,6 +8,8 @@ Research target: **Road Rash** (1991), **Road Rash II** (1992) and **Road Rash 3
 - [Visual references and source catalogue](VISUAL_REFERENCES.md)
 - [Asset inventory](ASSET_LIST.md)
 - [Screen specification](SCREENS.md)
+- [Visual gameplay and UI audit](VISUAL_GAMEPLAY_ANALYSIS.md)
+- [Five modern visual concepts](MODERN_VISUAL_CONCEPTS.md)
 
 ## Source policy
 Descriptions of the original games are marked **Original**; implementation recommendations are marked **Proposed**. Do not assume an unverified detail is canonical. Prefer original manuals and actual Genesis screenshots over remakes, fan art or other platform versions.
