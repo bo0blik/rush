@@ -5,6 +5,7 @@
 [node name="ChaseCamera" type="Camera3D"]
 process_priority = 10
 current = true
+doppler_tracking = 2
 fov = 55.0
 near = 0.1
 far = 2600.0

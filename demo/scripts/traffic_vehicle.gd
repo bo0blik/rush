@@ -47,9 +47,16 @@ func _ready() -> void:
 	shadow_mesh.size = Vector3(body_width * 0.9, body_height * 0.85, body_length * 0.85)
 	$ShadowVolume.mesh = shadow_mesh
 	$ShadowVolume.position.y = body_height * 0.45
+	$ShadowVolume.visible = false
 	var contact_mesh := PlaneMesh.new()
 	contact_mesh.size = Vector2(body_width * 1.3, body_length * 1.1)
 	$ContactShadow.mesh = contact_mesh
+	var passby := AudioStreamPlayer3D.new()
+	passby.name = "PassByAudio"
+	passby.set_script(preload("res://demo/scripts/vehicle_audio.gd"))
+	passby.set("heavy", body_height > 2.0)
+	passby.position.y = 0.7
+	add_child(passby)
 
 
 func place(track: DemoTrack, camera: Camera3D, delta: float = 0.0) -> void:

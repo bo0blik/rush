@@ -2,6 +2,8 @@ class_name RiderCharacter
 extends Node3D
 ## One articulated rider: procedural riding/attacks, then the same rig becomes physical.
 const PARTS = preload("res://demo/resources/rider_parts.tres")
+const RAGDOLL_PARTS = preload("res://demo/resources/rider_ragdoll_parts.tres")
+const RAGDOLL_KEYS = ["torso", "helmet", "sleeve_left", "forearm_left", "thigh_left", "shin_left", "boot_left", "sleeve_right", "forearm_right", "thigh_right", "shin_right", "boot_right"]
 signal outfit_changed
 var helmet: int = 0
 var jacket: int = 0
@@ -72,9 +74,9 @@ func _add_part(kind: String, start: String, end: String, width: float, length: f
 	sprite.shaded = true
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
-	sprite.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	sprite.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED
 	add_child(sprite)
-	parts.append({"sprite": sprite, "kind": kind, "start": bone_ids[start], "end": bone_ids.get(end, -1), "width": width, "length": length})
+	parts.append({"sprite": sprite, "kind": kind, "key": kind if kind in ["helmet", "torso"] else kind + "_" + start.get_slice("_", 0), "horizontal": false, "start": bone_ids[start], "end": bone_ids.get(end, -1), "width": width, "length": length})
 
 func mount(target: DemoMotorcycle) -> void:
 	bike = target
@@ -200,6 +202,8 @@ func launch(velocity: Vector3, contact_normal: Vector3, relative_speed: float) -
 	top_level = true
 	global_transform = world
 	ragdoll_active = true
+	last_side_view = false
+	_refresh_textures(false)
 	simulator.active = true
 	simulator.physical_bones_start_simulation()
 	var rebound: Vector3 = contact_normal * minf(relative_speed * 0.08, 2.5)
@@ -219,6 +223,24 @@ func _bone_world(index: int) -> Transform3D:
 
 func _refresh_textures(side_view: bool) -> void:
 	for part: Dictionary in parts:
+		if ragdoll_active:
+			var texture: AtlasTexture = RAGDOLL_PARTS.get_frame_texture(&"front" if side_view else &"back", RAGDOLL_KEYS.find(part.key))
+			part.sprite.texture = texture
+			part.horizontal = bool(texture.get_meta("horizontal", false))
+			part.direction = float(texture.get_meta("direction", 1))
+			part.sprite.pixel_size = float(part.width) / (texture.get_height() if part.horizontal else texture.get_width())
+			var material: ShaderMaterial = part.sprite.material_override
+			if material == null:
+				material = ShaderMaterial.new()
+				material.shader = preload("res://demo/shaders/rider_outfit.gdshader")
+				part.sprite.material_override = material
+			material.set_shader_parameter("source", texture.atlas)
+			material.set_shader_parameter("boots_start_y", 0.0 if part.kind == "boot" else 1.0)
+			for slot: String in ["helmet", "jacket", "pants", "boots"]:
+				material.set_shader_parameter(slot, get(slot))
+			continue
+		part.sprite.material_override = null
+		part.horizontal = false
 		var index: int = 0
 		match part.kind:
 			"helmet": index = helmet + (2 if side_view else 0)
@@ -242,7 +264,7 @@ func _process(_delta: float) -> void:
 	for part: Dictionary in parts:
 		part.sprite.visible = ragdoll_active
 	for glove: MeshInstance3D in gloves.values():
-		glove.visible = ragdoll_active
+		glove.visible = false
 	neck.visible = ragdoll_active
 	if not ragdoll_active:
 		return
@@ -250,26 +272,36 @@ func _process(_delta: float) -> void:
 	if camera == null or parts.is_empty():
 		return
 	var relative_camera: Vector3 = global_basis.inverse() * (camera.global_position - focus_position())
-	var side_view: bool = absf(relative_camera.x) > absf(relative_camera.z)
+	var chest: Transform3D = _bone_world(bone_ids.spine2)
+	var side_view: bool = chest.basis.z.dot(camera.global_position - chest.origin) < 0.0
 	if side_view != last_side_view:
 		last_side_view = side_view
 		_refresh_textures(side_view)
 	for part: Dictionary in parts:
 		var a: Transform3D = _bone_world(part.start)
 		var end: Vector3 = _bone_world(part.end).origin if part.end >= 0 else a.origin + a.basis.y * float(part.length)
+		if part.kind == "forearm":
+			end += (end - a.origin).normalized() * 0.06
 		if part.kind in ["helmet", "boot"]:
 			end = a.origin + a.basis.y * float(part.length) * 0.5
 			a.origin -= a.basis.y * float(part.length) * 0.5
 		var up: Vector3 = (end - a.origin).normalized()
+		if part.kind in ["thigh", "shin"]:
+			up = -up
 		var center: Vector3 = (a.origin + end) * 0.5
 		var facing: Vector3 = camera.global_position - center
 		facing = (facing - up * facing.dot(up)).normalized()
 		if facing.length_squared() < 0.01: facing = camera.global_basis.z
 		var right: Vector3 = up.cross(facing).normalized()
-		part.sprite.global_transform = Transform3D(Basis(right, up, right.cross(up)), center)
-		var natural_height: float = part.sprite.texture.get_height() * part.sprite.pixel_size
-		part.sprite.scale.y = maxf(0.05, a.origin.distance_to(end)) / maxf(natural_height, 0.001)
-		part.sprite.flip_h = side_view and relative_camera.x > 0.0
+		if part.horizontal:
+			part.sprite.global_transform = Transform3D(Basis(up * part.direction, -right * part.direction, right.cross(up)), center)
+			var natural_length: float = part.sprite.texture.get_width() * part.sprite.pixel_size
+			part.sprite.scale.x = maxf(0.05, a.origin.distance_to(end)) / maxf(natural_length, 0.001)
+		else:
+			part.sprite.global_transform = Transform3D(Basis(right, up, right.cross(up)), center)
+			var natural_height: float = part.sprite.texture.get_height() * part.sprite.pixel_size
+			part.sprite.scale.y = maxf(0.05, a.origin.distance_to(end)) / maxf(natural_height, 0.001)
+		part.sprite.flip_h = false
 	for index: int in gloves:
 		gloves[index].global_position = _bone_world(index).origin
 	var chest_frame: Transform3D = _bone_world(bone_ids.spine2)

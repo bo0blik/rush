@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://demo/scripts/close_flybys.gd" id="1"]
+
+[node name="CloseFlybys" type="CanvasLayer"]
+process_mode = 1
+layer = 5
+script = ExtResource("1")

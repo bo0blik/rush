@@ -11,7 +11,7 @@ func _ready() -> void:
 	shaded = true
 	texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
-	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED
 	outfit_material = ShaderMaterial.new()
 	outfit_material.shader = preload("res://demo/shaders/rider_outfit.gdshader")
 	material_override = outfit_material

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://demo/scripts/demo.gd" id="1_demo"]
 [ext_resource type="PackedScene" path="res://demo/scenes/track.tscn" id="2_track"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://demo/scenes/traffic.tscn" id="7_traffic"]
 [ext_resource type="PackedScene" path="res://demo/scenes/screen_effects.tscn" id="8_effects"]
 [ext_resource type="PackedScene" path="res://demo/scenes/wildlife.tscn" id="9_wildlife"]
+[ext_resource type="PackedScene" path="res://demo/scenes/close_flybys.tscn" id="10_flybys"]
 
 [sub_resource type="ShaderMaterial" id="SkyMaterial"]
 shader = ExtResource("6_sky")
@@ -66,3 +67,5 @@ process_mode = 1
 [node name="ScreenEffects" parent="." instance=ExtResource("8_effects")]
 
 [node name="Wildlife" parent="." instance=ExtResource("9_wildlife")]
+
+[node name="CloseFlybys" parent="." instance=ExtResource("10_flybys")]
