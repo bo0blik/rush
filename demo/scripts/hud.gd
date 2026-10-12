@@ -26,6 +26,9 @@ var steering: float = 0.0
 var graphics_name: String = "ЧИСТЫЙ ПИКСЕЛЬ"
 var graphics_index: int = 1
 var motion_enabled: bool = true
+var corner_layout: bool = true
+var hud_scale: float = 0.8
+var settings_open: bool = false
 @onready var font: Font = ThemeDB.fallback_font
 
 
@@ -113,6 +116,8 @@ func _draw() -> void:
 		return
 	var view: Vector2 = get_viewport_rect().size
 	draw_set_transform(Vector2(view.x * 0.5 - 320.0, view.y - 480.0))
+	if corner_layout:
+		draw_set_transform(Vector2(10, view.y - 10) - Vector2(173, 484) * hud_scale, 0.0, Vector2.ONE * hud_scale)
 	var housing := PackedVector2Array([Vector2(173, 484), Vector2(183, 417), Vector2(200, 372), Vector2(219, 358), Vector2(281, 358), Vector2(300, 371), Vector2(330, 409), Vector2(334, 484)])
 	draw_colored_polygon(housing, Color("090c14"))
 	draw_polyline(housing, Color("0a0c11"), 7.0)
@@ -150,12 +155,14 @@ func _draw() -> void:
 	draw_line(Vector2(280, 436), Vector2(288, 436), oil, 2.0)
 	draw_line(Vector2(289, 438), Vector2(297, 434), oil, 2.0)
 	draw_circle(Vector2(298, 445), 1.5, oil)
-	for bolt: Vector2 in [Vector2(191, 468), Vector2(311, 470), Vector2(452, 470)]:
+	for bolt: Vector2 in ([Vector2(191, 468), Vector2(311, 470)] if corner_layout else [Vector2(191, 468), Vector2(311, 470), Vector2(452, 470)]):
 		draw_circle(bolt, 4, Color("0a0b10"))
 		draw_circle(bolt, 2.5, Color("bea86a"))
 		draw_line(bolt + Vector2(-1, -1), bolt + Vector2(1, 1), Color("55492f"), 1.0)
 	_text(Vector2(213, 472), "%02d:%02d" % [int(elapsed) / 60, int(elapsed) % 60], 10, Color("a1a69c"))
 	var center := Vector2(383, 411)
+	if corner_layout:
+		draw_set_transform(Vector2(view.x - 10, view.y - 10) - Vector2(461, 489) * hud_scale, 0.0, Vector2.ONE * hud_scale)
 	for ring: Array in [[78.0, Color("070a10")], [75.0, Color("5a6070")], [73.0, Color("161b28")], [70.0, Color("343b49")], [68.0, Color("0e131f")]]:
 		draw_circle(center, ring[0], ring[1])
 	draw_arc(center, 74, deg_to_rad(200), deg_to_rad(292), 30, Color("9297a5"), 1.0)
@@ -182,7 +189,7 @@ func _draw() -> void:
 	draw_line(center - direction * 9.0, center + direction * 53.0, Color("ead9b5"), 2.0)
 	draw_circle(center, 4, Color("333943"))
 	draw_circle(center, 2, Color("c4bea5"))
-	if paused:
+	if paused and not settings_open:
 		draw_set_transform(Vector2.ZERO)
 		draw_rect(Rect2(Vector2.ZERO, view), Color(0.04, 0.07, 0.1, 0.65))
 		_text(view * 0.5 + Vector2(-42, 0), "ПАУЗА", 22)

@@ -1,6 +1,6 @@
 shader_type spatial;
 render_mode cull_disabled, diffuse_lambert_wrap, specular_disabled;
-uniform sampler2D source : source_color, filter_nearest;
+uniform sampler2D source : source_color, filter_nearest_mipmap;
 uniform vec2 atlas_size;
 uniform vec4 region;
 uniform float wheel_phase;

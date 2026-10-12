@@ -5,7 +5,9 @@ Open `scenes/forest_demo.tscn` and press F6, or press F5: it is the project's ma
 - W / Up: throttle; S / Down: front brake; Space: rear brake.
 - A / D / Left / Right: progressive lane changes; release to stabilize the chosen lane. The rider steers with the road. Sharp bends still require braking when tire grip is insufficient.
 - R: restart at the beginning; Escape: pause/resume.
-- F2: cycle five graphics presets; F3: toggle speed streaks and camera widening. Both work while paused.
+- F2: open/close the graphics menu at the upper left; the ride pauses while it is open. Escape closes the menu and restores the previous pause state.
+- H: switch between corner instruments and the classic centered dashboard. HUD visibility and corner size are adjustable in the menu.
+- F3: toggle acceleration blur and camera widening. The menu has separate controls for their strength.
 - F4: switch motorcycle physics templates and restart; Q/E: shift manually; M: automatic/manual shifting.
 - F5/F6/F7/F8 in the game window: helmet/jacket/pants/boots (two variants each, saved locally).
 - Z/X: left/right punch; C/V: left/right kick. F9: staged parked-car crash; R restores the detached rider.
@@ -100,3 +102,13 @@ Also checks eased lean reversal, braking smoke, dust, skid reset and generated p
 `Godot --headless --path . --script res://tests/motorcycle_physics_smoke.gd` checks torque/mass effects, shifting, drag, surface-dependent braking distances, load transfer, roll/yaw, shared grip and timestep stability.
 
 `Godot --headless --path . --script tests/rider_character_smoke.gd` checks outfit retention, IK, all four strikes and hit windows, detached ragdoll flight, local ground contacts, vaulting a parked sedan and reset. Generated asset prompts: `assets/CHARACTER_GENERATION.md`.
+
+## Graphics settings
+
+Five visual presets and three quality presets are editable live. Pixel controls include source render resolution, final pixel grid, spatial prefiltering, palette levels, ordered dithering, outlines, atlas pixel block size, mipmaps and geometry MSAA. Color controls include exposure, gamma, contrast, saturation, warmth and vignette. World controls include distance, vegetation density, wind, sunlight, ambient fill, fog, shadow range/softness and wildlife/particle visibility.
+
+The cinematic preset disables dithering and uses stronger spatial prefiltering. Scenery fade coverage is attached to source texture pixels to reduce moving screen noise. This is spatial stabilization, not temporal antialiasing: very small distant details can still flicker.
+
+Sprite baking creates cached derived atlas textures once after the slider settles. Atlas dimensions, frame regions, seat anchors and collision sizes stay unchanged. Block size 1 keeps original detail; larger blocks average the source artwork into larger pixels. Only the current block size is retained in memory. These are preprocessed textures, not prerendered 3D scenes, and they do not add new artwork detail. Mipmaps reduce distant texture aliasing. Changes persist in `user://graphics.cfg`; original source PNGs remain intact.
+
+Runtime atlas discovery uses [ResourceLoader.list_directory](https://docs.godotengine.org/en/4.6/classes/class_resourceloader.html#class-resourceloader-method-list-directory) so original resource names remain discoverable in exported Web builds.
