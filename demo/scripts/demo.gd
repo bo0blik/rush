@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 	if not get_tree().paused:
 		elapsed += delta
 	hud.update_clock(elapsed, get_tree().paused)
-	hud.update_motorcycle(rider.profile.display_name, rider.dynamics.gear, rider.dynamics.rpm, rider.dynamics.automatic, rider.dynamics.grip_usage)
+	hud.update_motorcycle(rider.profile.display_name, rider.dynamics.gear, rider.dynamics.rpm, rider.dynamics.automatic, rider.dynamics.grip_usage, rider.dynamics.steering_command)
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -4,9 +4,14 @@ uniform sampler2D atlas : source_color, filter_nearest;
 uniform vec4 region;
 uniform vec2 atlas_size;
 varying vec4 foliage_tint;
+varying float camera_distance;
+uniform float fade_start = 760.0;
+uniform float fade_end = 900.0;
+uniform float horizon = 0.0;
 
 void vertex() {
 	foliage_tint = COLOR;
+	camera_distance = length((VIEW_MATRIX * MODEL_MATRIX[3]).xyz);
 	vec3 up = vec3(0.0, 1.0, 0.0);
 	vec3 facing = normalize(vec3(INV_VIEW_MATRIX[2].x, 0.0, INV_VIEW_MATRIX[2].z));
 	vec3 right = normalize(cross(up, facing));
@@ -19,7 +24,12 @@ void vertex() {
 
 void fragment() {
 	vec4 color = texture(atlas, (region.xy + UV * region.zw) / atlas_size);
+	float visibility = 1.0 - smoothstep(fade_start, fade_end, camera_distance);
+	float grain = fract(sin(dot(floor(FRAGCOORD.xy), vec2(12.9898, 78.233))) * 43758.5453);
+	if (visibility <= grain) discard;
 	ALBEDO = color.rgb * foliage_tint.rgb;
+	EMISSION = ALBEDO * horizon;
+	ALBEDO *= 1.0 - horizon;
 	ALPHA = color.a;
 	ALPHA_SCISSOR_THRESHOLD = 0.5;
 	ROUGHNESS = 1.0;

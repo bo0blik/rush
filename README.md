@@ -4,6 +4,8 @@
 
 A pixel art motorcycle road demo made with Godot 4.7.2. Drive through a rural forest road, overtake traffic, change motorcycles and customize the rider.
 
+The dashboard uses an analog speedometer and warning lamps. The scenery includes eight layers of distant forest, animated insects and birds, and grazing/walking cattle and sheep. Acceleration adds peripheral radial blur; F3 toggles motion effects. These latest visual changes are published for user playtesting.
+
 ## Playing
 
 Use a desktop keyboard and a browser with WebGL 2. Click the game to focus it and enable audio. The game fills the browser window; click **На весь экран** in the top-right corner to enter full screen.

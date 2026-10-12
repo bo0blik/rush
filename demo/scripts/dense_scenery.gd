@@ -29,6 +29,10 @@ func build(road: Path3D, parent: Node3D) -> void:
 		var frame: Transform3D = _frame(35.0 + i * length / 6.0)
 		clearings.append(frame.origin - frame.basis.x * 10.5)
 	_build_rural()
+	for herd in range(4):
+		var along: float = [740.0, 860.0, 1040.0, 1220.0][herd]
+		var frame: Transform3D = _frame(along)
+		clearings.append(frame.origin + frame.basis.x * (-18.0 if herd % 2 == 0 else 18.0))
 	for i in range(floori(length / 4.5)):
 		var along: float = i * 4.5 + rng.randf_range(-1.5, 1.5)
 		var zone: int = floori(fposmod(along, length) / length * 6.0)
@@ -128,6 +132,8 @@ func _build_batches() -> void:
 			material.set_shader_parameter("atlas", texture.atlas)
 			material.set_shader_parameter("atlas_size", Vector2(texture.atlas.get_size()))
 			material.set_shader_parameter("region", Vector4(texture.region.position.x, texture.region.position.y, texture.region.size.x, texture.region.size.y))
+			material.set_shader_parameter("fade_start", 760.0 if group.tree else 480.0 if kind >= 24 else 360.0)
+			material.set_shader_parameter("fade_end", 900.0 if group.tree else 600.0 if kind >= 24 else 450.0)
 			materials[kind] = material
 		var multimesh := MultiMesh.new()
 		multimesh.transform_format = MultiMesh.TRANSFORM_3D
@@ -144,12 +150,18 @@ func _build_batches() -> void:
 			var extent := Vector3(item.size.x, item.size.y, item.size.x) * 0.5 + Vector3.ONE * 0.15
 			bounds = bounds.merge(AABB(item.origin - extent, extent * 2.0))
 		# Shader-expanded quads require explicit bounds to avoid early culling.
-		multimesh.custom_aabb = bounds
+		# Range culling uses the node origin, so batches must be centered on their trees.
+		var center: Vector3 = bounds.get_center()
+		for i in range(group.items.size()):
+			multimesh.set_instance_transform(i, Transform3D(Basis.IDENTITY, group.items[i].origin - center))
+		multimesh.custom_aabb = AABB(bounds.position - center, bounds.size)
 		var instance := MultiMeshInstance3D.new()
 		instance.name = "SceneryBatch_" + key
 		instance.multimesh = multimesh
+		instance.position = center
 		instance.material_override = materials[kind]
-		instance.visibility_range_end = 330.0 if group.tree else 165.0 if group.kind >= 24 else 115.0
+		var fade_end: float = 900.0 if group.tree else 600.0 if group.kind >= 24 else 450.0
+		instance.visibility_range_end = fade_end + bounds.size.length() * 0.5 + 20.0
 		instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED if group.tree else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		world.add_child(instance)
 
@@ -171,6 +183,7 @@ func _build_landmarks(length: float) -> void:
 	for i in range(5):
 		var along: float = 62.0 + i * length / 5.0
 		var cabin: Node3D = _landmark("ForestCabin%d" % i, along, 18.0 + i % 2 * 5.0)
+		cabin.scale = Vector3.ONE * 1.2
 		_box(cabin, Vector3(0, 1.3, 0), Vector3(4.8, 2.6, 4.0), Color("82613f"))
 		for plank in range(12):
 			_box(cabin, Vector3(0, 0.16 + plank * 0.21, 2.05), Vector3(4.9, 0.07, 0.11), Color("5e482f"))
@@ -247,12 +260,12 @@ func _build_rural() -> void:
 	for i in range(12):
 		var along: float = 104.0 + i * 40.0
 		var edges: Vector2 = track.call("river_edges", along)
-		_architecture("VillageHouse%02d" % i, 20 + i % 3, along, edges.y + 9.0 + i % 2 * 5.0, rng.randf_range(4.5, 6.0))
+		_architecture("VillageHouse%02d" % i, 20 + i % 3, along, edges.y + 11.0 + i % 2 * 5.0, rng.randf_range(7.2, 9.0))
 	for i in range(5):
-		_architecture("FarmHouse%d" % i, 20 + i % 3, 122.0 + i * 106.0, 20.0 + i % 2 * 4.0, 4.6)
-	_architecture("VillageChurch", 23, 240.0, 68.0, 16.5)
-	_architecture("VillageBarn", 26, 370.0, 71.0, 6.0)
-	_architecture("VillageWindmill", 27, 515.0, 63.0, 9.0)
+		_architecture("FarmHouse%d" % i, 20 + i % 3, 122.0 + i * 106.0, 24.0 + i % 2 * 4.0, 7.4)
+	_architecture("VillageChurch", 23, 240.0, 68.0, 23.0)
+	_architecture("VillageBarn", 26, 370.0, 71.0, 9.0)
+	_architecture("VillageWindmill", 27, 515.0, 63.0, 13.0)
 	var crop_count: int = 0
 	for i in range(290):
 		var along: float = 90.0 + i * 1.8

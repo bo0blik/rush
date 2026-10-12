@@ -40,6 +40,9 @@ func _ready() -> void:
 		body.add_child(cabin)
 	add_child(body)
 	sprite.normalize_pose_height = true
+	var reference: AtlasTexture = sprite.sprite_frames.get_frame_texture(sprite.reference_animation, 0)
+	sprite.reference_width = body_width
+	sprite.reference_height = maxf(body_height, body_width * (reference.region.size.y - 2.0) / (reference.region.size.x - 2.0))
 	var shadow_mesh := BoxMesh.new()
 	shadow_mesh.size = Vector3(body_width * 0.9, body_height * 0.85, body_length * 0.85)
 	$ShadowVolume.mesh = shadow_mesh
