@@ -15,6 +15,10 @@ run/main_scene="res://demo/scenes/forest_demo.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MCPRuntimeServer="*res://addons/godot_mcp_toolkit/runtime/mcp_runtime_server.gd"
+
 [display]
 
 window/size/viewport_width=640.0
@@ -25,6 +29,10 @@ window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 window/stretch/scale_mode.web="fractional"
 window/stretch/aspect.web="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_mcp_toolkit/plugin.cfg")
 
 [input]
 
