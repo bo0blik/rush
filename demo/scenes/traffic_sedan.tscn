@@ -13,16 +13,16 @@ size = Vector2(2, 4)
 
 [node name="Sedan" type="Node3D"]
 script = ExtResource("1")
-body_width = 1.75
-body_length = 4.2
-body_height = 1.5
+body_width = 1.9
+body_length = 4.5
+body_height = 1.65
 
 [node name="Body" type="MeshInstance3D" parent="."]
 script = ExtResource("3")
 sprite_frames = ExtResource("4")
 reference_animation = &"rear_drive"
-reference_width = 1.75
-reference_height = 1.5
+reference_width = 1.9
+reference_height = 1.65
 canvas_size = Vector2(8, 3.5)
 
 [node name="ContactShadow" type="MeshInstance3D" parent="."]

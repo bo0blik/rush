@@ -52,7 +52,7 @@ func _update_motion() -> void:
 	var grid: Vector2 = MODES[mode_index].grid
 	grid.x = roundf(grid.y * view.x / maxf(1.0, view.y))
 	effect.set_shader_parameter("pixel_grid", grid)
-	effect.set_shader_parameter("speed_amount", speed_amount * motion_strength())
+	effect.set_shader_parameter("speed_amount", speed_amount if motion_enabled else 0.0)
 
 
 func reset() -> void:
@@ -66,10 +66,10 @@ func reset() -> void:
 func _process(delta: float) -> void:
 	if rider == null or delta <= 0.0:
 		return
-	var acceleration: float = maxf(0.0, (rider.speed - previous_speed) / delta)
+	var acceleration: float = maxf(0.0, rider.dynamics.acceleration)
 	previous_speed = rider.speed
 	var pace: float = smoothstep(9.0, 36.0, rider.speed)
-	var target: float = clampf(pace * 0.65 + smoothstep(1.0, 7.0, acceleration) * smoothstep(3.0, 15.0, rider.speed) * 0.35, 0.0, 1.0)
+	var target: float = clampf(pace * 0.2 + smoothstep(0.4, 3.5, acceleration) * smoothstep(0.5, 4.0, rider.speed) * 0.8, 0.0, 1.0)
 	speed_amount = lerpf(speed_amount, target, 1.0 - exp(-4.0 * delta))
 	motion_time += delta * (0.35 + pace * 0.65)
 	_update_motion()

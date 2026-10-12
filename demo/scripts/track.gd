@@ -159,7 +159,7 @@ func _build_landscape(world: Node3D) -> void:
 	var ground := MeshInstance3D.new()
 	ground.name = "ForestFloor"
 	var plane := PlaneMesh.new()
-	plane.size = Vector2(1800.0, 1800.0)
+	plane.size = Vector2(3200.0, 3200.0)
 	ground.mesh = plane
 	ground.position.y = -7.0
 	ground.material_override = _flat_material(Color("6b873f"))
@@ -213,22 +213,64 @@ func _ridge_height(angle: float, layer: int) -> float:
 
 
 func _build_far_forest(world: Node3D) -> void:
-	var cell := Vector2(scenery_atlas.get_size()) / Vector2(4.0, 2.0)
-	for i in range(190):
-		var angle: float = i * TAU / 190.0
-		var tree := Sprite3D.new()
-		tree.name = "HorizonPine%03d" % i
-		tree.texture = scenery_atlas
-		tree.region_enabled = true
-		tree.region_rect = Rect2(Vector2(0 if i % 2 == 0 else 2, 0) * cell, cell)
-		var height: float = 27.0 + sin(i * 7.1) * 9.0
-		tree.pixel_size = height / cell.y
-		tree.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
-		tree.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-		tree.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
-		tree.modulate = Color(0.50, 0.72, 0.83)
-		tree.position = Vector3(cos(angle) * 430.0, height * 0.492 - 3.0, sin(angle) * 430.0)
-		world.add_child(tree)
+	var frames: SpriteFrames = preload("res://demo/resources/scenery_frames.tres")
+	var quad := QuadMesh.new()
+	quad.size = Vector2.ONE
+	var total: int = 0
+	for layer in range(8):
+		var radius: float = 270.0 + layer * 58.0 if layer < 6 else (837.0 if layer == 6 else 1107.0)
+		var count: int = ceili(TAU * radius / 8.0)
+		for kind: int in [0, 3]:
+			var texture: AtlasTexture = frames.get_frame_texture(&"forest", kind)
+			var material := ShaderMaterial.new()
+			material.shader = preload("res://demo/shaders/scenery_billboard.gdshader")
+			material.set_shader_parameter("atlas", texture.atlas)
+			material.set_shader_parameter("atlas_size", Vector2(texture.atlas.get_size()))
+			material.set_shader_parameter("region", Vector4(texture.region.position.x, texture.region.position.y, texture.region.size.x, texture.region.size.y))
+			material.set_shader_parameter("fade_start", 2300.0)
+			material.set_shader_parameter("fade_end", 2500.0)
+			material.set_shader_parameter("horizon", 0.8)
+			var items: Array[Dictionary] = []
+			for i in range(count):
+				if (i % 3 == 0) != (kind == 0):
+					continue
+				var angle: float = i * TAU / count + layer * 0.027
+				var radial: float = radius + sin(i * 17.3 + layer) * 9.0
+				var point := Vector3(cos(angle) * radial, -5.0, sin(angle) * radial)
+				if layer < 5:
+					var closest: Vector3 = curve.get_closest_point(point)
+					if Vector2(point.x - closest.x, point.z - closest.z).length() < 28.0:
+						continue
+				else:
+					point.y = _ridge_height(angle, 0 if layer == 5 else layer - 5) - 8.0
+				var height: float = 18.0 + (sin(i * 7.1) + 1.0) * 7.0
+				var width: float = height * texture.region.size.x / texture.region.size.y
+				point.y += height * 0.5
+				items.append({"origin": point, "size": Vector2(width, height)})
+			var batch := MultiMesh.new()
+			batch.transform_format = MultiMesh.TRANSFORM_3D
+			batch.use_colors = true
+			batch.use_custom_data = true
+			batch.mesh = quad
+			batch.instance_count = items.size()
+			var bounds := AABB(items[0].origin, Vector3.ZERO)
+			var tint: Color = Color("426c51") if layer < 4 else Color("52765f") if layer == 4 else Color("466d74") if layer == 5 else Color("537a93") if layer == 6 else Color("6a88b2")
+			for i in range(items.size()):
+				var item: Dictionary = items[i]
+				batch.set_instance_transform(i, Transform3D(Basis.IDENTITY, item.origin))
+				batch.set_instance_custom_data(i, Color(item.size.x, item.size.y, 0, 0))
+				batch.set_instance_color(i, tint)
+				var extent := Vector3(item.size.x, item.size.y, item.size.x) * 0.5
+				bounds = bounds.merge(AABB(item.origin - extent, extent * 2.0))
+			batch.custom_aabb = bounds
+			var forest := MultiMeshInstance3D.new()
+			forest.name = "HorizonForest_%d_%d" % [layer, kind]
+			forest.multimesh = batch
+			forest.material_override = material
+			forest.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			world.add_child(forest)
+			total += items.size()
+	world.set_meta("horizon_tree_count", total)
 
 
 func _build_posts(world: Node3D) -> void:

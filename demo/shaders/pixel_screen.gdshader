@@ -16,6 +16,17 @@ void fragment() {
 	vec2 cell = floor(SCREEN_UV * pixel_grid);
 	vec2 uv = (cell + 0.5) / pixel_grid;
 	vec3 color = texture(screen_texture, uv).rgb;
+	// Radial peripheral blur: the rider and the road ahead remain sharp.
+	vec2 radial = uv - vec2(0.5, 0.42);
+	float edge_blur = smoothstep(0.24, 0.55, length(radial * vec2(1.1, 1.0)));
+	vec2 blur_step = radial * speed_amount * edge_blur * 0.045;
+	vec3 blurred = color * 0.2;
+	for (int sample_index = 1; sample_index <= 4; sample_index++) {
+		vec2 sample_uv = uv - blur_step * float(sample_index);
+		sample_uv = (floor(sample_uv * pixel_grid) + 0.5) / pixel_grid;
+		blurred += texture(screen_texture, clamp(sample_uv, vec2(0.001), vec2(0.999))).rgb * 0.2;
+	}
+	color = mix(color, blurred, edge_blur * speed_amount);
 	// A small ordered dither keeps gradients readable after palette reduction.
 	float pattern = mod(cell.x + mod(cell.y, 2.0) * 2.0, 4.0) / 4.0 - 0.375;
 	float luminance = dot(color, vec3(0.299, 0.587, 0.114));
@@ -33,14 +44,9 @@ void fragment() {
 	}
 	vec2 offset = (uv - vec2(0.5, 0.40)) * vec2(1.3333, 1.0);
 	float radius = length(offset);
-	float angle = atan(offset.y, offset.x);
-	float lane = floor((angle + 3.14159) * 48.0);
-	float seed = fract(sin(lane * 127.1) * 43758.5453);
-	float streak = step(0.82, seed) * pow(max(0.0, sin(radius * 45.0 - motion_time * (18.0 + seed * 12.0) + seed * 50.0)), 12.0);
 	float edge = smoothstep(0.30, 0.66, radius);
 	// Peripheral streaks leave the rider, traffic ahead and dashboard clear.
 	float road_mask = 1.0 - smoothstep(0.73, 0.79, uv.y);
 	color *= 1.0 - edge * (speed_amount * 0.10 * road_mask + vignette);
-	color = mix(color, vec3(0.76, 0.87, 0.94), streak * edge * speed_amount * 0.32 * road_mask);
 	COLOR = vec4(color, 1.0);
 }
