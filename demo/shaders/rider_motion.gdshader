@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode cull_disabled, diffuse_lambert_wrap, specular_disabled;
 
-uniform sampler2D rider_atlas : source_color, filter_nearest;
+uniform sampler2D rider_atlas : source_color, filter_nearest_mipmap;
 uniform float body_lean = 0.0;
 uniform float body_pitch = 0.0;
 uniform float wheel_phase = 0.0;

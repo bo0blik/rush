@@ -22,6 +22,11 @@ func _ready() -> void:
 	rider.fall_started.connect(camera.jolt)
 	$ScreenEffects.graphics_changed.connect(_graphics_changed)
 	$ScreenEffects.setup(rider)
+	var settings := CanvasLayer.new()
+	settings.name = "GraphicsSettings"
+	settings.layer = 20
+	settings.set_script(preload("res://demo/scripts/graphics_settings.gd"))
+	add_child(settings)
 
 
 func _graphics_changed(mode_name: String, index: int, motion_enabled: bool) -> void:
@@ -73,7 +78,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		rider.dynamics.automatic = not rider.dynamics.automatic
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("cycle_graphics"):
-		$ScreenEffects.cycle_mode()
+		$GraphicsSettings.toggle_menu()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_H:
+		$GraphicsSettings.toggle_hud()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("toggle_speed_effects"):
 		$ScreenEffects.toggle_motion()

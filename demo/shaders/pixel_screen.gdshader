@@ -11,11 +11,27 @@ uniform float saturation = 1.0;
 uniform float warmth = 0.0;
 uniform float outline = 0.0;
 uniform float vignette = 0.0;
+uniform float stability = 0.55;
+uniform float exposure = 1.0;
+uniform float gamma = 1.0;
+
+vec3 stable_sample(vec2 uv) {
+	vec3 center = texture(screen_texture, uv).rgb;
+	if (stability <= 0.001) return center;
+	vec2 radius = 0.38 / pixel_grid;
+	vec3 filtered = center * 4.0;
+	for (int x = -1; x <= 1; x++) {
+		for (int y = -1; y <= 1; y++) {
+			if (x != 0 || y != 0) filtered += texture(screen_texture, clamp(uv + vec2(float(x), float(y)) * radius, vec2(0.001), vec2(0.999))).rgb;
+		}
+	}
+	return mix(center, filtered / 12.0, stability);
+}
 
 void fragment() {
 	vec2 cell = floor(SCREEN_UV * pixel_grid);
 	vec2 uv = (cell + 0.5) / pixel_grid;
-	vec3 color = texture(screen_texture, uv).rgb;
+	vec3 color = stable_sample(uv);
 	// Radial peripheral blur: the rider and the road ahead remain sharp.
 	vec2 radial = uv - vec2(0.5, 0.42);
 	float edge_blur = smoothstep(0.24, 0.55, length(radial * vec2(1.1, 1.0)));
@@ -29,16 +45,20 @@ void fragment() {
 	color = mix(color, blurred, edge_blur * speed_amount);
 	// A small ordered dither keeps gradients readable after palette reduction.
 	float pattern = mod(cell.x + mod(cell.y, 2.0) * 2.0, 4.0) / 4.0 - 0.375;
-	float luminance = dot(color, vec3(0.299, 0.587, 0.114));
-	color = mix(vec3(luminance), color, saturation);
-	color = (color - 0.5) * contrast + 0.5;
-	color += vec3(warmth, warmth * 0.23, -warmth * 0.55) * (0.3 + luminance * 0.7);
 	if (outline > 0.0) {
-		vec3 neighbor = texture(screen_texture, uv + vec2(1.0, 0.0) / pixel_grid).rgb;
-		vec3 below = texture(screen_texture, uv + vec2(0.0, 1.0) / pixel_grid).rgb;
+		vec3 neighbor = stable_sample(uv + vec2(1.0, 0.0) / pixel_grid);
+		vec3 below = stable_sample(uv + vec2(0.0, 1.0) / pixel_grid);
 		float difference = max(length(color - neighbor), length(color - below));
 		color *= 1.0 - smoothstep(0.14, 0.55, difference) * outline;
 	}
+	float luminance = dot(color, vec3(0.299, 0.587, 0.114));
+	color *= exposure;
+	color = pow(max(color, vec3(0.0)), vec3(1.0 / max(gamma, 0.1)));
+	luminance = dot(color, vec3(0.299, 0.587, 0.114));
+	color = mix(vec3(luminance), color, saturation);
+	color = (color - 0.5) * contrast + 0.5;
+	color += vec3(warmth, warmth * 0.23, -warmth * 0.55) * (0.3 + luminance * 0.7);
+
 	if (steps > 0.0) {
 		color = floor(clamp(color + pattern * dither / steps, 0.0, 1.0) * steps + 0.5) / steps;
 	}

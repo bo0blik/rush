@@ -66,20 +66,39 @@ func _run() -> void:
 		# The headless dummy renderer does not retain per-instance GPU transforms.
 		valid_bounds = valid_bounds and mesh.custom_aabb.size.is_finite() and mesh.custom_aabb.size.y > 0.3 and mesh.custom_aabb.size.x > 0.3
 	_check(valid_bounds and instance_count > 8000, "All shader-expanded scenery must have explicit bounds")
-	_check(InputMap.action_get_events("cycle_graphics")[0].physical_keycode == KEY_F2, "F2 must cycle graphics")
+	_check(InputMap.action_get_events("cycle_graphics")[0].physical_keycode == KEY_F2, "F2 must open graphics settings")
 	_check(InputMap.action_get_events("toggle_speed_effects")[0].physical_keycode == KEY_F3, "F3 must toggle motion effects")
-	var visited: Array[int] = []
-	for i in range(5):
-		demo._unhandled_input(_key(KEY_F2))
-		visited.append(effects.mode_index)
-		_check(hud.graphics_index == effects.mode_index, "HUD must identify the active graphics mode")
-		var grid: Vector2 = effects.effect.get_shader_parameter("pixel_grid")
-		_check(is_zero_approx(fmod(640.0, grid.x)) and is_zero_approx(fmod(480.0, grid.y)), "Pixels must scale to integer blocks")
-	_check(visited == [2, 3, 4, 0, 1], "Five graphics presets must cycle and wrap exactly once per key press")
+	var settings = demo.get_node("GraphicsSettings")
+	settings.values = settings.DEFAULTS.duplicate()
+	settings._apply_world()
+	demo._unhandled_input(_key(KEY_F2))
+	_check(settings.panel.visible and paused, "Graphics menu must open and pause the ride")
+	_check(hud.settings_open, "Graphics preview must not be dimmed by the pause overlay")
+	settings._select_preset(4)
+	_check(effects.mode_index == 4 and is_zero_approx(effects.settings.dither), "Cinematic preset must disable noisy dithering")
+	settings._change("stability", 0.9, true)
+	_check(is_equal_approx(effects.effect.get_shader_parameter("stability"), 0.9), "Custom settings must reach the screen shader")
+	settings._change("corner_hud", false, false)
+	_check(not hud.corner_layout, "Classic centered HUD must remain selectable")
+	settings.toggle_hud()
+	_check(hud.corner_layout, "HUD shortcut must restore corner instruments")
+	settings.values.bake = 2.0
+	settings._apply_textures()
+	var atlas: AtlasTexture = settings.atlases[0]
+	var original: Texture2D = atlas.get_meta("graphics_source")
+	_check(atlas.atlas != original and atlas.atlas.get_size() == original.get_size(), "Baked atlases must preserve source coordinates")
+	settings.values.bake = 1.0
+	settings.values.mipmaps = false
+	settings._apply_textures()
+	_check(atlas.atlas == original, "Source atlas must be recoverable without mipmaps or baking")
+	settings.toggle_menu()
+	_check(not settings.panel.visible and not paused, "Closing settings must restore the previous pause state")
+	effects.apply_mode(2)
 	effects.speed_amount = 0.8
 	paused = true
-	demo._unhandled_input(_key(KEY_F2))
-	_check(effects.mode_index == 2, "Graphics must remain selectable while paused")
+	settings.toggle_menu()
+	_check(settings.panel.visible and effects.mode_index == 2, "Graphics settings must remain accessible while paused")
+	settings.toggle_menu()
 	demo._unhandled_input(_key(KEY_F3))
 	_check(not effects.motion_enabled and is_zero_approx(camera.speed_visual_strength), "F3 must disable both screen streaks and camera widening")
 	_check(is_zero_approx(effects.effect.get_shader_parameter("speed_amount")), "Motion must disappear immediately while paused")
@@ -90,7 +109,7 @@ func _run() -> void:
 	_check(effects.mode_index == 2 and is_zero_approx(effects.speed_amount), "Restart must keep the chosen look and clear speed effects")
 	effects.apply_mode(0)
 	_check(is_zero_approx(effects.effect.get_shader_parameter("steps")) and is_zero_approx(camera.speed_visual_strength), "Original mode must disable color filtering and speed distortion")
-	print("SCENERY / GRAPHICS: %s | %d trees, %d ground props, %d batches; 5 presets, F2/F3, pause, reset" % ["PASS" if failures == 0 else "FAIL", world.get_meta("tree_count"), world.get_meta("ground_prop_count"), world.get_meta("scenery_batch_count")])
+	print("SCENERY / GRAPHICS: %s | %d trees, %d ground props, %d batches; 5 presets, F2 menu, corner HUD, texture baking, F3, pause, reset" % ["PASS" if failures == 0 else "FAIL", world.get_meta("tree_count"), world.get_meta("ground_prop_count"), world.get_meta("scenery_batch_count")])
 	demo.queue_free()
 	await process_frame
 	await create_timer(0.3).timeout

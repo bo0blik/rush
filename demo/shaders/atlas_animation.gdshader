@@ -1,8 +1,8 @@
 shader_type spatial;
 render_mode cull_disabled, diffuse_lambert_wrap, specular_disabled;
 
-uniform sampler2D atlas : source_color, filter_nearest;
-uniform sampler2D atlas_b : source_color, filter_nearest;
+uniform sampler2D atlas : source_color, filter_nearest_mipmap;
+uniform sampler2D atlas_b : source_color, filter_nearest_mipmap;
 uniform vec2 atlas_size = vec2(1536.0, 1024.0);
 uniform vec2 atlas_size_b = vec2(1536.0, 1024.0);
 uniform vec4 rect_a;
