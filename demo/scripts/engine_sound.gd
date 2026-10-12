@@ -1,32 +1,28 @@
 class_name DemoEngineSound
 extends AudioStreamPlayer
-## Small synthesized engine loop; no external audio dependency.
+## A baked loop avoids frame-driven generator underruns in Web builds.
 
-var playback: AudioStreamGeneratorPlayback
-var phase: float = 0.0
 var road_speed: float = 0.0
 var throttle: float = 0.0
 var engine_rpm: float = 1100.0
-var frequency: float = 25.0
 
 
 func _ready() -> void:
-	playback_type = AudioServer.PLAYBACK_TYPE_STREAM
+	var loop: AudioStreamWAV = preload("res://demo/audio/motorcycle_engine.wav").duplicate()
+	loop.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	loop.loop_begin = 0
+	loop.loop_end = roundi(loop.get_length() * loop.mix_rate)
+	stream = loop
+	playback_type = AudioServer.PLAYBACK_TYPE_SAMPLE if OS.has_feature("web") else AudioServer.PLAYBACK_TYPE_STREAM
+	pitch_scale = 0.55
 	play()
-	playback = get_stream_playback()
 
 
 func _exit_tree() -> void:
 	stop()
-	playback = null
 
 
 func _process(delta: float) -> void:
-	if playback == null:
-		return
-	var desired: float = engine_rpm / 60.0 + throttle * 4.0
-	frequency = lerpf(frequency, desired, 1.0 - exp(-delta * 10.0))
-	for i in range(playback.get_frames_available()):
-		phase = fposmod(phase + frequency / 22050.0, 1.0)
-		var sample: float = sin(phase * TAU) * 0.55 + sin(phase * TAU * 2.0) * 0.3 + sin(phase * TAU * 4.0) * 0.15
-		playback.push_frame(Vector2.ONE * sample * (0.22 + throttle * 0.14))
+	var desired: float = clampf(engine_rpm / 2400.0, 0.55, 3.3)
+	pitch_scale = lerpf(pitch_scale, desired, 1.0 - exp(-delta * 7.0))
+	volume_db = lerpf(volume_db, -20.0 + throttle * 7.0, 1.0 - exp(-delta * 7.0))
