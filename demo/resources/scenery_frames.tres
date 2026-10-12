@@ -1,0 +1,152 @@
+[gd_resource type="SpriteFrames" load_steps=32 format=3]
+
+[ext_resource type="Texture2D" path="res://demo/assets/forest_atlas.png" id="0"]
+
+[ext_resource type="Texture2D" path="res://demo/assets/forest_props.png" id="1"]
+
+[ext_resource type="Texture2D" path="res://demo/assets/rural_atlas.png" id="2"]
+
+[sub_resource type="AtlasTexture" id="S0_0"]
+atlas = ExtResource("0")
+region = Rect2(86, 20, 245, 489)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S0_1"]
+atlas = ExtResource("0")
+region = Rect2(423, 12, 328, 497)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S0_2"]
+atlas = ExtResource("0")
+region = Rect2(824, 47, 305, 462)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S0_3"]
+atlas = ExtResource("0")
+region = Rect2(1210, 23, 287, 486)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S0_4"]
+atlas = ExtResource("0")
+region = Rect2(48, 524, 308, 477)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S0_5"]
+atlas = ExtResource("0")
+region = Rect2(475, 530, 218, 471)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S0_6"]
+atlas = ExtResource("0")
+region = Rect2(784, 754, 345, 248)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S0_7"]
+atlas = ExtResource("0")
+region = Rect2(1165, 715, 360, 290)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_0"]
+atlas = ExtResource("1")
+region = Rect2(21, 111, 369, 267)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_1"]
+atlas = ExtResource("1")
+region = Rect2(412, 63, 354, 311)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_2"]
+atlas = ExtResource("1")
+region = Rect2(785, 98, 377, 272)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_3"]
+atlas = ExtResource("1")
+region = Rect2(1185, 24, 333, 346)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_4"]
+atlas = ExtResource("1")
+region = Rect2(26, 488, 390, 189)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_5"]
+atlas = ExtResource("1")
+region = Rect2(420, 416, 347, 259)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_6"]
+atlas = ExtResource("1")
+region = Rect2(772, 426, 408, 246)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_7"]
+atlas = ExtResource("1")
+region = Rect2(1189, 385, 330, 281)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_8"]
+atlas = ExtResource("1")
+region = Rect2(24, 750, 400, 235)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_9"]
+atlas = ExtResource("1")
+region = Rect2(473, 685, 252, 307)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_10"]
+atlas = ExtResource("1")
+region = Rect2(798, 710, 371, 278)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S1_11"]
+atlas = ExtResource("1")
+region = Rect2(1190, 677, 322, 319)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_0"]
+atlas = ExtResource("2")
+region = Rect2(4, 268, 380, 297)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_1"]
+atlas = ExtResource("2")
+region = Rect2(391, 265, 390, 297)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_2"]
+atlas = ExtResource("2")
+region = Rect2(782, 266, 404, 296)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_3"]
+atlas = ExtResource("2")
+region = Rect2(1195, 46, 336, 516)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_4"]
+atlas = ExtResource("2")
+region = Rect2(14, 617, 385, 368)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_5"]
+atlas = ExtResource("2")
+region = Rect2(407, 622, 352, 360)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_6"]
+atlas = ExtResource("2")
+region = Rect2(768, 622, 473, 340)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="S2_7"]
+atlas = ExtResource("2")
+region = Rect2(1231, 573, 292, 402)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("S0_0")}, {"duration": 1.0, "texture": SubResource("S0_1")}, {"duration": 1.0, "texture": SubResource("S0_2")}, {"duration": 1.0, "texture": SubResource("S0_3")}, {"duration": 1.0, "texture": SubResource("S0_4")}, {"duration": 1.0, "texture": SubResource("S0_5")}, {"duration": 1.0, "texture": SubResource("S0_6")}, {"duration": 1.0, "texture": SubResource("S0_7")}], "loop": false, "name": &"forest", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("S1_0")}, {"duration": 1.0, "texture": SubResource("S1_1")}, {"duration": 1.0, "texture": SubResource("S1_2")}, {"duration": 1.0, "texture": SubResource("S1_3")}, {"duration": 1.0, "texture": SubResource("S1_4")}, {"duration": 1.0, "texture": SubResource("S1_5")}, {"duration": 1.0, "texture": SubResource("S1_6")}, {"duration": 1.0, "texture": SubResource("S1_7")}, {"duration": 1.0, "texture": SubResource("S1_8")}, {"duration": 1.0, "texture": SubResource("S1_9")}, {"duration": 1.0, "texture": SubResource("S1_10")}, {"duration": 1.0, "texture": SubResource("S1_11")}], "loop": false, "name": &"props", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("S2_0")}, {"duration": 1.0, "texture": SubResource("S2_1")}, {"duration": 1.0, "texture": SubResource("S2_2")}, {"duration": 1.0, "texture": SubResource("S2_3")}, {"duration": 1.0, "texture": SubResource("S2_4")}, {"duration": 1.0, "texture": SubResource("S2_5")}, {"duration": 1.0, "texture": SubResource("S2_6")}, {"duration": 1.0, "texture": SubResource("S2_7")}], "loop": false, "name": &"rural", "speed": 1.0}]

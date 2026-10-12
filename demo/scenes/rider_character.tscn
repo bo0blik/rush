@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://demo/scenes/rider_physical_rig.tscn" id="1"]
+[ext_resource type="Script" path="res://demo/scripts/rider_character.gd" id="2"]
+
+[node name="Character" instance=ExtResource("1")]
+script = ExtResource("2")

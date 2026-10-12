@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://demo/scripts/traffic_vehicle.gd" id="1"]
+[ext_resource type="Shader" path="res://demo/shaders/contact_shadow.gdshader" id="2"]
+[ext_resource type="Script" path="res://demo/scripts/atlas_visual.gd" id="3"]
+[ext_resource type="SpriteFrames" path="res://demo/resources/sedan_animation_frames.tres" id="4"]
+
+[sub_resource type="ShaderMaterial" id="ShadowMaterial"]
+shader = ExtResource("2")
+
+[sub_resource type="PlaneMesh" id="ContactMesh"]
+size = Vector2(2, 4)
+
+[node name="Sedan" type="Node3D"]
+script = ExtResource("1")
+body_width = 1.75
+body_length = 4.2
+body_height = 1.5
+
+[node name="Body" type="MeshInstance3D" parent="."]
+script = ExtResource("3")
+sprite_frames = ExtResource("4")
+reference_animation = &"rear_drive"
+reference_width = 1.75
+reference_height = 1.5
+canvas_size = Vector2(8, 3.5)
+
+[node name="ContactShadow" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.018, 0)
+mesh = SubResource("ContactMesh")
+material_override = SubResource("ShadowMaterial")
+cast_shadow = 0
+
+[node name="ShadowVolume" type="MeshInstance3D" parent="."]
+cast_shadow = 3
+

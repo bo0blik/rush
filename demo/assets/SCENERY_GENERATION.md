@@ -1,0 +1,11 @@
+# Forest ground props
+
+Generated with the built-in imagegen tool using forest_atlas.png and ref/generated/gameplay-forest.png as style references. No API fallback was used.
+
+The complete 1536x1024 transparent source is saved unchanged as `demo/assets/forest_props.png`, copied from `exec-231deb73-ec47-4652-be63-8c0ad6f53e8b.png` in generation session `01a12bba-c0a5-7400-a622-d61176e20b38`.
+
+12 sprites: fern, wildflowers, juniper, reeds, birch log, stump, mossy boulder, rowan, firewood, direction sign, hay cart and haystack. Exact silhouettes do not respect all requested cell edges; `tools/build_scenery_resources.py` measures connected alpha and creates 20 fitted AtlasTextures from the existing forest atlas plus the new props. It leaves all PNG pixels unchanged. Regenerate with `python tools/build_scenery_resources.py`.
+
+## Complete prompt
+
+Use case stylized-concept. Production game atlas for a Russian forest road motorcycle game. Reference1 is forest foliage style, reference2 is gameplay art style. EXACTLY 12 isolated pixel art prop sprites on a transparent 1536x1024 canvas, exactly FOUR columns and THREE rows of equal cells (384x341), one COMPLETE prop per cell with at least24px transparent margin. ROW1 left to right: lush green fern clump; wild grass clump with white daisies and purple lupines; rounded dark juniper bush; tall lakeside reed clump with cattails. ROW2: fallen birch trunk with moss and visible cut end; weathered tree stump with roots and tiny mushrooms; gray mossy angular boulder pile; small young leafy rowan with orange-red berry clusters. ROW3: rustic stacked split firewood pile; wooden rural direction sign with blank boards on one post; old brown wooden two-wheel cart carrying hay; conical haystack golden straw. All front-facing or slight threequarter view with modest elevated chase camera, grounded contact baseline near bottom of own cell. NO ground patch, no cast shadow, no scenery, no borders, no letters, no labels. Match premium16bit deliberate crisp pixel clusters and dark restrained outline, warm sunny greens, earthy browns, coherent realistic object proportions. No overlapping neighbors, no cropped limbs, genuine transparent alpha around each prop.

@@ -1,0 +1,111 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3]
+
+[ext_resource type="Texture2D" path="res://demo/assets/rider_mounted_v6.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="P0"]
+atlas = ExtResource("1")
+region = Rect2(105, 7, 276, 387)
+filter_clip = true
+metadata/head = Vector2(137.5, 33.0)
+metadata/seat = Vector2(134, 223)
+metadata/boot = Vector2(195.5091, 356.6372)
+metadata/boot_width = 32
+metadata/boot_height = 36
+metadata/pixel_size = 0.00372093
+metadata/hand_left = Vector2(48, 163)
+metadata/hand_right = Vector2(225, 163)
+
+[sub_resource type="AtlasTexture" id="P1"]
+atlas = ExtResource("1")
+region = Rect2(499, 22, 273, 372)
+filter_clip = true
+metadata/head = Vector2(135.5, 31.0)
+metadata/seat = Vector2(134, 213)
+metadata/boot = Vector2(192.5567, 342.4330)
+metadata/boot_width = 39
+metadata/boot_height = 34
+metadata/pixel_size = 0.00380952
+metadata/hand_left = Vector2(48, 150)
+metadata/hand_right = Vector2(225, 150)
+
+[sub_resource type="AtlasTexture" id="P2"]
+atlas = ExtResource("1")
+region = Rect2(926, 7, 276, 387)
+filter_clip = true
+metadata/head = Vector2(135.0, 36.5)
+metadata/seat = Vector2(135, 223)
+metadata/boot = Vector2(195.4575, 356.7353)
+metadata/boot_width = 37
+metadata/boot_height = 36
+metadata/pixel_size = 0.00359551
+metadata/hand_left = Vector2(48, 163)
+metadata/hand_right = Vector2(225, 163)
+
+[sub_resource type="AtlasTexture" id="P3"]
+atlas = ExtResource("1")
+region = Rect2(95, 421, 289, 390)
+filter_clip = true
+metadata/head = Vector2(143.5, 33.0)
+metadata/seat = Vector2(136, 224)
+metadata/boot = Vector2(207.1816, 359.1354)
+metadata/boot_width = 37
+metadata/boot_height = 35
+metadata/pixel_size = 0.00372093
+
+[sub_resource type="AtlasTexture" id="P4"]
+atlas = ExtResource("1")
+region = Rect2(404, 424, 400, 387)
+filter_clip = true
+metadata/head = Vector2(251.0, 36.0)
+metadata/seat = Vector2(262, 223)
+metadata/boot = Vector2(317.8991, 356.7262)
+metadata/boot_width = 39
+metadata/boot_height = 35
+metadata/pixel_size = 0.00367816
+
+[sub_resource type="AtlasTexture" id="P5"]
+atlas = ExtResource("1")
+region = Rect2(917, 424, 290, 387)
+filter_clip = true
+metadata/head = Vector2(143.0, 36.0)
+metadata/seat = Vector2(143, 223)
+metadata/boot = Vector2(205.4675, 355.0747)
+metadata/boot_width = 39
+metadata/boot_height = 48
+metadata/pixel_size = 0.00367816
+
+[sub_resource type="AtlasTexture" id="P6"]
+atlas = ExtResource("1")
+region = Rect2(83, 820, 297, 426)
+filter_clip = true
+metadata/head = Vector2(149.0, 36.0)
+metadata/seat = Vector2(150, 220)
+metadata/boot = Vector2(202.1552, 393.7509)
+metadata/boot_width = 31
+metadata/boot_height = 35
+metadata/pixel_size = 0.00367816
+
+[sub_resource type="AtlasTexture" id="P7"]
+atlas = ExtResource("1")
+region = Rect2(372, 825, 452, 421)
+filter_clip = true
+metadata/head = Vector2(305.5, 35.0)
+metadata/seat = Vector2(329, 216)
+metadata/boot = Vector2(355.6082, 389.4104)
+metadata/boot_width = 35
+metadata/boot_height = 36
+metadata/pixel_size = 0.00372093
+
+[sub_resource type="AtlasTexture" id="P8"]
+atlas = ExtResource("1")
+region = Rect2(921, 821, 300, 425)
+filter_clip = true
+metadata/head = Vector2(151.5, 35.0)
+metadata/seat = Vector2(146, 219)
+metadata/boot = Vector2(200.7422, 393.4297)
+metadata/boot_width = 32
+metadata/boot_height = 34
+metadata/pixel_size = 0.00363636
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("P0")}, {"duration": 1.0, "texture": SubResource("P1")}, {"duration": 1.0, "texture": SubResource("P2")}, {"duration": 1.0, "texture": SubResource("P3")}, {"duration": 1.0, "texture": SubResource("P4")}, {"duration": 1.0, "texture": SubResource("P5")}, {"duration": 1.0, "texture": SubResource("P6")}, {"duration": 1.0, "texture": SubResource("P7")}, {"duration": 1.0, "texture": SubResource("P8")}], "loop": false, "name": &"poses", "speed": 1.0}]

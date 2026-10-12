@@ -1,0 +1,106 @@
+[gd_resource type="SpriteFrames" load_steps=22 format=3]
+
+[ext_resource type="Texture2D" path="res://demo/assets/rider_parts_v2.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="A0"]
+atlas = ExtResource("1")
+region = Rect2(139, 54, 158, 144)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A1"]
+atlas = ExtResource("1")
+region = Rect2(446, 54, 154, 144)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A2"]
+atlas = ExtResource("1")
+region = Rect2(758, 54, 162, 144)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A3"]
+atlas = ExtResource("1")
+region = Rect2(1066, 54, 163, 144)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A4"]
+atlas = ExtResource("1")
+region = Rect2(105, 222, 230, 187)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A5"]
+atlas = ExtResource("1")
+region = Rect2(414, 222, 228, 187)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A6"]
+atlas = ExtResource("1")
+region = Rect2(770, 221, 156, 191)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A7"]
+atlas = ExtResource("1")
+region = Rect2(1073, 221, 156, 191)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A8"]
+atlas = ExtResource("1")
+region = Rect2(166, 439, 87, 183)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A9"]
+atlas = ExtResource("1")
+region = Rect2(486, 439, 87, 183)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A10"]
+atlas = ExtResource("1")
+region = Rect2(809, 449, 84, 170)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A11"]
+atlas = ExtResource("1")
+region = Rect2(1122, 449, 75, 172)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A12"]
+atlas = ExtResource("1")
+region = Rect2(153, 651, 111, 266)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A13"]
+atlas = ExtResource("1")
+region = Rect2(462, 651, 109, 266)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A14"]
+atlas = ExtResource("1")
+region = Rect2(778, 651, 134, 266)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A15"]
+atlas = ExtResource("1")
+region = Rect2(1083, 651, 136, 266)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A16"]
+atlas = ExtResource("1")
+region = Rect2(160, 951, 98, 148)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A17"]
+atlas = ExtResource("1")
+region = Rect2(470, 951, 97, 148)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A18"]
+atlas = ExtResource("1")
+region = Rect2(742, 953, 162, 145)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="A19"]
+atlas = ExtResource("1")
+region = Rect2(1055, 952, 164, 146)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("A0")}, {"duration": 1.0, "texture": SubResource("A1")}, {"duration": 1.0, "texture": SubResource("A2")}, {"duration": 1.0, "texture": SubResource("A3")}, {"duration": 1.0, "texture": SubResource("A4")}, {"duration": 1.0, "texture": SubResource("A5")}, {"duration": 1.0, "texture": SubResource("A6")}, {"duration": 1.0, "texture": SubResource("A7")}, {"duration": 1.0, "texture": SubResource("A8")}, {"duration": 1.0, "texture": SubResource("A9")}, {"duration": 1.0, "texture": SubResource("A10")}, {"duration": 1.0, "texture": SubResource("A11")}, {"duration": 1.0, "texture": SubResource("A12")}, {"duration": 1.0, "texture": SubResource("A13")}, {"duration": 1.0, "texture": SubResource("A14")}, {"duration": 1.0, "texture": SubResource("A15")}, {"duration": 1.0, "texture": SubResource("A16")}, {"duration": 1.0, "texture": SubResource("A17")}, {"duration": 1.0, "texture": SubResource("A18")}, {"duration": 1.0, "texture": SubResource("A19")}], "loop": false, "name": &"parts", "speed": 1.0}]
