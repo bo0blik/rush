@@ -115,9 +115,11 @@ func _draw() -> void:
 	if font == null:
 		return
 	var view: Vector2 = get_viewport_rect().size
-	draw_set_transform(Vector2(view.x * 0.5 - 320.0, view.y - 480.0))
+	var ui_scale: float = maxf(0.75, float(get_window().content_scale_size.y) / 480.0)
+	var instrument_scale: float = hud_scale * ui_scale
+	draw_set_transform(Vector2(view.x * 0.5 - 320.0 * ui_scale, view.y - 480.0 * ui_scale), 0.0, Vector2.ONE * ui_scale)
 	if corner_layout:
-		draw_set_transform(Vector2(10, view.y - 10) - Vector2(173, 484) * hud_scale, 0.0, Vector2.ONE * hud_scale)
+		draw_set_transform(Vector2(10 * ui_scale, view.y - 10 * ui_scale) - Vector2(173, 484) * instrument_scale, 0.0, Vector2.ONE * instrument_scale)
 	var housing := PackedVector2Array([Vector2(173, 484), Vector2(183, 417), Vector2(200, 372), Vector2(219, 358), Vector2(281, 358), Vector2(300, 371), Vector2(330, 409), Vector2(334, 484)])
 	draw_colored_polygon(housing, Color("090c14"))
 	draw_polyline(housing, Color("0a0c11"), 7.0)
@@ -162,7 +164,7 @@ func _draw() -> void:
 	_text(Vector2(213, 472), "%02d:%02d" % [int(elapsed) / 60, int(elapsed) % 60], 10, Color("a1a69c"))
 	var center := Vector2(383, 411)
 	if corner_layout:
-		draw_set_transform(Vector2(view.x - 10, view.y - 10) - Vector2(461, 489) * hud_scale, 0.0, Vector2.ONE * hud_scale)
+		draw_set_transform(Vector2(view.x - 10 * ui_scale, view.y - 10 * ui_scale) - Vector2(461, 489) * instrument_scale, 0.0, Vector2.ONE * instrument_scale)
 	for ring: Array in [[78.0, Color("070a10")], [75.0, Color("5a6070")], [73.0, Color("161b28")], [70.0, Color("343b49")], [68.0, Color("0e131f")]]:
 		draw_circle(center, ring[0], ring[1])
 	draw_arc(center, 74, deg_to_rad(200), deg_to_rad(292), 30, Color("9297a5"), 1.0)

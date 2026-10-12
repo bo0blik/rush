@@ -112,3 +112,11 @@ The cinematic preset disables dithering and uses stronger spatial prefiltering. 
 Sprite baking creates cached derived atlas textures once after the slider settles. Atlas dimensions, frame regions, seat anchors and collision sizes stay unchanged. Block size 1 keeps original detail; larger blocks average the source artwork into larger pixels. Only the current block size is retained in memory. These are preprocessed textures, not prerendered 3D scenes, and they do not add new artwork detail. Mipmaps reduce distant texture aliasing. Changes persist in `user://graphics.cfg`; original source PNGs remain intact.
 
 Runtime atlas discovery uses [ResourceLoader.list_directory](https://docs.godotengine.org/en/4.6/classes/class_resourceloader.html#class-resourceloader-method-list-directory) so original resource names remain discoverable in exported Web builds.
+
+### Distant clarity and additional effects
+
+F2 → Distance (`Даль`) exposes real-distance sprite compensation: its start/end range, mip detail bias, contrast, saturation, light compensation, authored horizon tint and filtered silhouette coverage. All scenery and horizon forest materials receive these values. Per-instance distance is evaluated from expanded billboard vertices, not the MultiMesh batch center. Detailed color sampling retains the unbiased filtered alpha to reduce silhouette flicker.
+
+Screen horizon controls use a configurable vertical band, not a depth buffer: finer pixel samples, bounded sharpening and halo limits. The original frame can be rendered at up to 1440 pixels high; the common pixel grid can reach 960. Three distance presets combine source resolution, stable mipmaps, local clarity and finer horizon pixels. Strong negative mip bias can increase shimmer; sharpening cannot recover detail smaller than the source image pixels.
+
+The Effects tab adds global bounded sharpening, local highlight glow, peripheral chromatic separation, scanlines, static grain, black lift and highlight compression. All effects default to neutral and remain independently adjustable and persistent. Local glow is a short-range screen filter rather than engine HDR bloom. The texture detail bias uses Godot's [supported texture sampling bias](https://docs.godotengine.org/en/4.3/tutorials/shaders/shader_reference/shading_language.html).

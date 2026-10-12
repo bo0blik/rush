@@ -2,7 +2,7 @@ extends CanvasLayer
 ## Live settings; original atlases remain intact and derived textures are reusable.
 
 const SAVE_PATH := "user://graphics.cfg"
-const DEFAULTS := {"render_height": 480.0, "bake": 1.0, "mipmaps": true, "msaa": 1, "distance": 1.0, "density": 1.0, "shadows": true, "shadow_distance": 150.0, "shadow_softness": 2.0, "sun": 0.9, "ambient": 0.55, "fog": 0.00065, "wind": 1.0, "particles": true, "wildlife": true, "flybys": true, "corner_hud": true, "hud_scale": 0.8, "hud_visible": true}
+const DEFAULTS := {"far_enabled": true, "far_start": 100.0, "far_end": 650.0, "far_bias": 0.0, "far_contrast": 0.0, "far_saturation": 0.0, "far_emission": 0.0, "far_haze": 0.0, "far_alpha": 0.5, "render_height": 480.0, "bake": 1.0, "mipmaps": true, "msaa": 1, "distance": 1.0, "density": 1.0, "shadows": true, "shadow_distance": 150.0, "shadow_softness": 2.0, "sun": 0.9, "ambient": 0.55, "fog": 0.00065, "wind": 1.0, "particles": true, "wildlife": true, "flybys": true, "corner_hud": true, "hud_scale": 0.8, "hud_visible": true}
 var values: Dictionary = DEFAULTS.duplicate()
 var controls: Dictionary = {}
 var sources: Dictionary = {}
@@ -89,11 +89,13 @@ func _build_menu() -> void:
 	preset.item_selected.connect(_select_preset)
 	body.add_child(preset)
 	var tabs := TabContainer.new()
+	tabs.add_theme_font_size_override("font_size", 10)
+	tabs.add_theme_constant_override("side_margin", 2)
 	tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(tabs)
 	var pixel := _page(tabs, "Пиксель")
-	_slider(pixel, "render_height", "Разрешение исходного кадра", 360, 960, 120)
-	_slider(pixel, "pixel_height", "Высота пиксельного кадра", 120, 480, 8, true)
+	_slider(pixel, "render_height", "Разрешение исходного кадра", 360, 1440, 120)
+	_slider(pixel, "pixel_height", "Высота пиксельного кадра", 120, 960, 8, true)
 	_slider(pixel, "stability", "Сглаживание перед пикселизацией", 0, 1, 0.05, true)
 	_slider(pixel, "steps", "Уровни цвета (0 = полный цвет)", 0, 64, 1, true)
 	_slider(pixel, "dither", "Дизеринг / рябь", 0, 1, 0.05, true)
@@ -141,6 +143,35 @@ func _build_menu() -> void:
 	_check(world, "particles", "Дым, пыль и искры")
 	_check(world, "wildlife", "Животные, птицы и насекомые")
 	_check(world, "flybys", "Пролёты перед камерой")
+	var far := _page(tabs, "Даль")
+	_check(far, "far_enabled", "Компенсация дальних спрайтов")
+	_slider(far, "far_start", "Начало компенсации, м", 30, 400, 10)
+	_slider(far, "far_end", "Полная компенсация, м", 450, 1800, 50)
+	_slider(far, "far_bias", "Сохранение мелких деталей", 0, 1.5, 0.1)
+	_slider(far, "far_contrast", "Контраст по расстоянию", 0, 0.5, 0.025)
+	_slider(far, "far_saturation", "Насыщенность по расстоянию", 0, 0.5, 0.025)
+	_slider(far, "far_emission", "Компенсация потери света", 0, 0.3, 0.025)
+	_slider(far, "far_haze", "Читаемость леса на горизонте", 0, 0.65, 0.05)
+	_slider(far, "far_alpha", "Плотность силуэтов вдали", 0.25, 0.5, 0.025)
+	_slider(far, "far_detail", "Детализация зоны горизонта", 1, 3, 0.25, true)
+	_slider(far, "far_sharpen", "Резкость зоны горизонта", 0, 1, 0.05, true)
+	_slider(far, "sharpen_limit", "Ограничение ореолов", 0.01, 0.15, 0.01, true)
+	_slider(far, "horizon_line", "Нижняя граница дальней зоны", 0.25, 0.7, 0.025, true)
+	_note(far, "Спрайты компенсируются по реальному расстоянию.\nЗона горизонта — отдельный экранный эффект.\nБольшое сохранение деталей может усилить рябь.")
+	for preset_title: String in ["Спокойный дальний план", "Максимум деталей", "Атмосферный пейзаж"]:
+		var button := Button.new()
+		button.text = preset_title
+		button.pressed.connect(_far_preset.bind(preset_title))
+		far.add_child(button)
+	var extra := _page(tabs, "Эффекты")
+	_slider(extra, "sharpen", "Общая резкость", 0, 1, 0.05, true)
+	_slider(extra, "bloom", "Свечение ярких участков", 0, 0.5, 0.025, true)
+	_slider(extra, "bloom_threshold", "Порог свечения", 0.4, 1, 0.05, true)
+	_slider(extra, "aberration", "Хроматические края", 0, 2, 0.1, true)
+	_slider(extra, "scanlines", "Полосы ретро-экрана", 0, 0.3, 0.025, true)
+	_slider(extra, "grain", "Статичное зерно", 0, 0.08, 0.005, true)
+	_slider(extra, "black_lift", "Приподнять чёрный", 0, 0.15, 0.01, true)
+	_slider(extra, "highlight_rolloff", "Смягчить светлые участки", 0, 1, 0.05, true)
 	var interface := _page(tabs, "HUD")
 	_check(interface, "corner_hud", "Приборы по углам / H")
 	_slider(interface, "hud_scale", "Размер угловых приборов", 0.55, 1, 0.05)
@@ -263,6 +294,24 @@ func _select_preset(index: int) -> void:
 	_save_later()
 
 
+func _far_preset(title: String) -> void:
+	var strong: bool = title == "Максимум деталей"
+	var atmosphere: bool = title == "Атмосферный пейзаж"
+	values.merge({"far_enabled": true, "far_start": 100.0, "far_end": 650.0,
+		"far_bias": 0.7 if strong else 0.15, "far_contrast": 0.22 if strong else 0.1,
+		"far_saturation": 0.15 if strong else 0.05, "far_emission": 0.08 if strong else 0.03,
+		"far_haze": 0.4 if strong else 0.0 if atmosphere else 0.2, "far_alpha": 0.4,
+		"render_height": 1080.0 if strong else 720.0, "mipmaps": true, "bake": 1.0}, true)
+	effects.settings.merge({"name": "СВОИ НАСТРОЙКИ", "far_detail": 2.5 if strong else 1.5,
+		"far_sharpen": 0.45 if strong else 0.2, "sharpen_limit": 0.05,
+		"horizon_line": 0.52, "stability": 0.8, "dither": 0.0}, true)
+	effects.apply_settings()
+	_apply_world()
+	texture_timer.start()
+	_sync()
+	_save_later()
+
+
 func toggle_hud() -> void:
 	_change("corner_hud", not values.corner_hud, false)
 	_sync()
@@ -303,11 +352,15 @@ func _input(event: InputEvent) -> void:
 
 func _resize() -> void:
 	var view: Vector2 = get_viewport().get_visible_rect().size
-	panel.size = Vector2(minf(340, view.x - 16), maxf(160, view.y - 16))
+	var ui_scale: float = maxf(0.75, float(get_window().content_scale_size.y) / 480.0)
+	panel.scale = Vector2.ONE * ui_scale
+	panel.position = Vector2(8, 8) * ui_scale
+	panel.size = Vector2(minf(340, view.x / ui_scale - 16), maxf(160, view.y / ui_scale - 16))
 
 
 func _apply_world() -> void:
 	get_window().content_scale_size = Vector2i(roundi(float(values.render_height) * 4.0 / 3.0), int(values.render_height))
+	_resize()
 	var sun: DirectionalLight3D = demo.get_node("Sun")
 	sun.shadow_enabled = values.shadows
 	sun.directional_shadow_max_distance = values.shadow_distance
@@ -333,6 +386,10 @@ func _apply_world() -> void:
 		if entry.range > 0.0:
 			node.visibility_range_end = entry.range * float(values.distance)
 		var material: ShaderMaterial = node.material_override as ShaderMaterial
+		if material != null:
+			for parameter: String in ["far_start", "far_end", "far_bias", "far_contrast", "far_saturation", "far_emission", "far_haze", "far_alpha"]:
+				material.set_shader_parameter(parameter, values[parameter])
+			material.set_shader_parameter("far_enabled", values.far_enabled)
 		if material != null and entry.fade > 0.0:
 			material.set_shader_parameter("fade_start", entry.fade_start * float(values.distance))
 			material.set_shader_parameter("fade_end", entry.fade * float(values.distance))
