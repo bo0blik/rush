@@ -23,7 +23,7 @@ func _ready() -> void:
 	quad.size = canvas_size
 	mesh = quad
 	position.y = canvas_size.y * 0.5
-	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED
 	material = ShaderMaterial.new()
 	material.shader = preload("res://demo/shaders/atlas_animation.gdshader")
 	material.set_shader_parameter("atlas", reference.atlas)

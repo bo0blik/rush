@@ -168,12 +168,6 @@ func _draw() -> void:
 			var label: String = str(tick * 4)
 			var width: float = font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 10).x
 			_text(center + direction * 48.0 + Vector2(-width * 0.5, 3), label, 10)
-	var needle: float = deg_to_rad(135.0 + clampf(needle_speed / 160.0, 0.0, 1.0) * 270.0)
-	var direction := Vector2(cos(needle), sin(needle))
-	draw_line(center + Vector2(1, 2) - direction * 9.0, center + Vector2(1, 2) + direction * 53.0, Color("07090f"), 4.0)
-	draw_line(center - direction * 9.0, center + direction * 53.0, Color("ead9b5"), 2.0)
-	draw_circle(center, 4, Color("333943"))
-	draw_circle(center, 2, Color("c4bea5"))
 	var digits: String = "%05d%d" % [int(traveled / 1000.0) % 100000, int(traveled / 100.0) % 10]
 	draw_rect(Rect2(353, 387, 62, 15), Color("05080e"))
 	for digit in range(6):
@@ -182,6 +176,12 @@ func _draw() -> void:
 		_text(rect.position + Vector2(1, 9), digits[digit], 10, PAPER)
 	_text(Vector2(370, 434), "km/h", 10)
 	_text(Vector2(355, 454), "TRIP %05.1f" % (traveled / 1000.0), 8, MUTED)
+	var needle: float = deg_to_rad(135.0 + clampf(needle_speed / 160.0, 0.0, 1.0) * 270.0)
+	var direction := Vector2(cos(needle), sin(needle))
+	draw_line(center + Vector2(1, 2) - direction * 9.0, center + Vector2(1, 2) + direction * 53.0, Color("07090f"), 4.0)
+	draw_line(center - direction * 9.0, center + direction * 53.0, Color("ead9b5"), 2.0)
+	draw_circle(center, 4, Color("333943"))
+	draw_circle(center, 2, Color("c4bea5"))
 	if paused:
 		draw_set_transform(Vector2.ZERO)
 		draw_rect(Rect2(Vector2.ZERO, view), Color(0.04, 0.07, 0.1, 0.65))

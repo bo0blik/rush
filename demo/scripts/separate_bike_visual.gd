@@ -10,7 +10,7 @@ func _ready() -> void:
 	texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
 	shaded = true
-	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED
 	wheel_material = ShaderMaterial.new()
 	wheel_material.shader = preload("res://demo/shaders/bike_wheels.gdshader")
 	rear_overlay = Sprite3D.new()

@@ -1,0 +1,175 @@
+[gd_resource type="SpriteFrames" load_steps=26 format=3]
+
+[ext_resource type="Texture2D" path="res://demo/assets/rider_tpose_front_back.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="front_0"]
+atlas = ExtResource("1")
+region = Rect2(338, 171, 212, 310)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="front_1"]
+atlas = ExtResource("1")
+region = Rect2(363, 12, 158, 166)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="front_2"]
+atlas = ExtResource("1")
+region = Rect2(536, 188, 132, 76)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="front_3"]
+atlas = ExtResource("1")
+region = Rect2(658, 192, 213, 68)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="front_4"]
+atlas = ExtResource("1")
+region = Rect2(444, 459, 106, 166)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="front_5"]
+atlas = ExtResource("1")
+region = Rect2(455, 610, 107, 175)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="front_6"]
+atlas = ExtResource("1")
+region = Rect2(495, 774, 97, 98)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="front_7"]
+atlas = ExtResource("1")
+region = Rect2(210, 188, 138, 76)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="front_8"]
+atlas = ExtResource("1")
+region = Rect2(15, 192, 212, 68)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="front_9"]
+atlas = ExtResource("1")
+region = Rect2(337, 459, 107, 166)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="front_10"]
+atlas = ExtResource("1")
+region = Rect2(325, 610, 91, 175)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="front_11"]
+atlas = ExtResource("1")
+region = Rect2(296, 774, 100, 98)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="back_0"]
+atlas = ExtResource("1")
+region = Rect2(1228, 165, 209, 320)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="back_1"]
+atlas = ExtResource("1")
+region = Rect2(1253, 12, 159, 158)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="back_2"]
+atlas = ExtResource("1")
+region = Rect2(1093, 187, 147, 78)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="back_3"]
+atlas = ExtResource("1")
+region = Rect2(902, 192, 208, 70)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="back_4"]
+atlas = ExtResource("1")
+region = Rect2(1226, 459, 105, 166)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="back_5"]
+atlas = ExtResource("1")
+region = Rect2(1210, 610, 104, 174)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="back_6"]
+atlas = ExtResource("1")
+region = Rect2(1188, 774, 98, 98)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = -1
+
+[sub_resource type="AtlasTexture" id="back_7"]
+atlas = ExtResource("1")
+region = Rect2(1421, 187, 137, 78)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="back_8"]
+atlas = ExtResource("1")
+region = Rect2(1538, 192, 219, 70)
+filter_clip = true
+metadata/horizontal = true
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="back_9"]
+atlas = ExtResource("1")
+region = Rect2(1332, 459, 103, 166)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="back_10"]
+atlas = ExtResource("1")
+region = Rect2(1340, 610, 103, 175)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[sub_resource type="AtlasTexture" id="back_11"]
+atlas = ExtResource("1")
+region = Rect2(1380, 774, 96, 98)
+filter_clip = true
+metadata/horizontal = false
+metadata/direction = 1
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("front_0")}, {"duration": 1.0, "texture": SubResource("front_1")}, {"duration": 1.0, "texture": SubResource("front_2")}, {"duration": 1.0, "texture": SubResource("front_3")}, {"duration": 1.0, "texture": SubResource("front_4")}, {"duration": 1.0, "texture": SubResource("front_5")}, {"duration": 1.0, "texture": SubResource("front_6")}, {"duration": 1.0, "texture": SubResource("front_7")}, {"duration": 1.0, "texture": SubResource("front_8")}, {"duration": 1.0, "texture": SubResource("front_9")}, {"duration": 1.0, "texture": SubResource("front_10")}, {"duration": 1.0, "texture": SubResource("front_11")}], "loop": false, "name": &"front", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("back_0")}, {"duration": 1.0, "texture": SubResource("back_1")}, {"duration": 1.0, "texture": SubResource("back_2")}, {"duration": 1.0, "texture": SubResource("back_3")}, {"duration": 1.0, "texture": SubResource("back_4")}, {"duration": 1.0, "texture": SubResource("back_5")}, {"duration": 1.0, "texture": SubResource("back_6")}, {"duration": 1.0, "texture": SubResource("back_7")}, {"duration": 1.0, "texture": SubResource("back_8")}, {"duration": 1.0, "texture": SubResource("back_9")}, {"duration": 1.0, "texture": SubResource("back_10")}, {"duration": 1.0, "texture": SubResource("back_11")}], "loop": false, "name": &"back", "speed": 1.0}]
