@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="MotorcycleSpec" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://demo/scripts/motorcycle_spec.gd" id="1"]
+
+[sub_resource type="Curve" id="Torque"]
+_data = [Vector2(0, 0.40), 0.0, 0.0, 0, 0, Vector2(0.30, 0.85), 0.0, 0.0, 0, 0, Vector2(0.60, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.60), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[resource]
+visual_height_m = 1.2
+seat_anchor = Vector3(0, 0.87, 0.08)
+handlebar_anchor = Vector3(0.35, 1.05, -0.60)
+footpeg_anchor = Vector3(0.27, 0.34, -0.05)
+script = ExtResource("1")
+display_name = "ТУРИСТ 650"
+mass_kg = 228.0
+wheelbase_m = 1.54
+body_width_m = 0.91
+wheel_radius_m = 0.33
+center_of_mass_height_m = 0.67
+peak_torque_nm = 50.0
+torque_curve = SubResource("Torque")
+redline_rpm = 7000.0
+shift_up_rpm = 6000.0
+gear_ratios = PackedFloat32Array(2.8, 1.9, 1.4, 1.12, 0.95)
+primary_ratio = 2.0
+final_drive_ratio = 2.8
+drag_area_m2 = 0.72
+front_brake_force_n = 3100.0
+rear_brake_force_n = 1500.0
+abs_enabled = true
+max_lean_degrees = 45.0
+roll_stiffness_nm = 5100.0
+suspension_travel_m = 0.16
+engine_braking_nm = 7.0

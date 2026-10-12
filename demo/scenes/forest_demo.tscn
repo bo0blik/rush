@@ -1,0 +1,65 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://demo/scripts/demo.gd" id="1_demo"]
+[ext_resource type="PackedScene" path="res://demo/scenes/track.tscn" id="2_track"]
+[ext_resource type="PackedScene" path="res://demo/scenes/motorcycle.tscn" id="3_bike"]
+[ext_resource type="PackedScene" path="res://demo/scenes/chase_camera.tscn" id="4_camera"]
+[ext_resource type="PackedScene" path="res://demo/scenes/hud.tscn" id="5_hud"]
+[ext_resource type="Shader" path="res://demo/shaders/forest_sky.gdshader" id="6_sky"]
+[ext_resource type="PackedScene" path="res://demo/scenes/traffic.tscn" id="7_traffic"]
+[ext_resource type="PackedScene" path="res://demo/scenes/screen_effects.tscn" id="8_effects"]
+
+[sub_resource type="ShaderMaterial" id="SkyMaterial"]
+shader = ExtResource("6_sky")
+
+[sub_resource type="Sky" id="Sky"]
+sky_material = SubResource("SkyMaterial")
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 2
+sky = SubResource("Sky")
+ambient_light_source = 2
+ambient_light_color = Color(0.68, 0.77, 0.90, 1)
+ambient_light_energy = 0.55
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
+fog_enabled = true
+fog_light_color = Color(0.40, 0.58, 0.80, 1)
+fog_density = 0.00065
+fog_sky_affect = 0.0
+
+[node name="ForestDemo" type="Node3D"]
+process_mode = 3
+script = ExtResource("1_demo")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-38, -38, 0)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 0.90
+light_angular_distance = 0.8
+shadow_enabled = true
+shadow_bias = 0.035
+shadow_normal_bias = 0.65
+shadow_blur = 2.0
+directional_shadow_mode = 2
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 150.0
+directional_shadow_fade_start = 0.8
+
+[node name="Track" parent="." instance=ExtResource("2_track")]
+process_mode = 1
+
+[node name="Motorcycle" parent="." instance=ExtResource("3_bike")]
+process_mode = 1
+
+[node name="ChaseCamera" parent="." instance=ExtResource("4_camera")]
+process_mode = 1
+
+[node name="HUD" parent="." instance=ExtResource("5_hud")]
+
+[node name="Traffic" parent="." instance=ExtResource("7_traffic")]
+
+[node name="ScreenEffects" parent="." instance=ExtResource("8_effects")]

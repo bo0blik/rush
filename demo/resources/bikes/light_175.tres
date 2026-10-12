@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="MotorcycleSpec" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://demo/scripts/motorcycle_spec.gd" id="1"]
+
+[sub_resource type="Curve" id="Torque"]
+_data = [Vector2(0, 0.25), 0.0, 0.0, 0, 0, Vector2(0.35, 0.70), 0.0, 0.0, 0, 0, Vector2(0.65, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.55), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[resource]
+seat_anchor = Vector3(0, 0.78, 0.08)
+handlebar_anchor = Vector3(0.3, 0.96, -0.56)
+footpeg_anchor = Vector3(0.23, 0.3, -0.04)
+script = ExtResource("1")
+display_name = "ЛЁГКИЙ 175"
+mass_kg = 118.0
+wheelbase_m = 1.32
+body_width_m = 0.74
+center_of_mass_height_m = 0.55
+peak_torque_nm = 14.0
+torque_curve = SubResource("Torque")
+redline_rpm = 7000.0
+shift_up_rpm = 6100.0
+primary_ratio = 2.55
+final_drive_ratio = 3.0
+drag_area_m2 = 0.56
+front_brake_force_n = 1650.0
+rear_brake_force_n = 700.0
+max_lean_degrees = 39.0
+roll_stiffness_nm = 4500.0
+engine_braking_nm = 2.5

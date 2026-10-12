@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://demo/scripts/traffic.gd" id="1"]
+
+[node name="Traffic" type="Node3D"]
+process_mode = 1
+process_priority = 5
+script = ExtResource("1")

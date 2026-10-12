@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://demo/scripts/motorcycle.gd" id="1_bike"]
+[ext_resource type="Script" path="res://demo/scripts/engine_sound.gd" id="3_engine"]
+[ext_resource type="Script" path="res://demo/scripts/tire_effects.gd" id="4_effects"]
+[ext_resource type="Shader" path="res://demo/shaders/contact_shadow.gdshader" id="7_shadow"]
+[ext_resource type="PackedScene" path="res://demo/scenes/rider_character.tscn" id="8_character"]
+[ext_resource type="Script" path="res://demo/scripts/separate_bike_visual.gd" id="9_separate"]
+
+[sub_resource type="AudioStreamGenerator" id="EngineStream"]
+mix_rate = 22050.0
+buffer_length = 0.12
+
+[sub_resource type="ShaderMaterial" id="ShadowMaterial"]
+shader = ExtResource("7_shadow")
+
+[sub_resource type="PlaneMesh" id="ShadowMesh"]
+size = Vector2(1.65, 2.35)
+
+[sub_resource type="BoxMesh" id="BikeShadowMesh"]
+size = Vector3(0.5, 0.8, 1.3)
+
+[node name="Motorcycle" type="Node3D"]
+script = ExtResource("1_bike")
+
+[node name="Shadow" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.015, 0)
+mesh = SubResource("ShadowMesh")
+material_override = SubResource("ShadowMaterial")
+cast_shadow = 0
+
+[node name="BikeVisual" type="Sprite3D" parent="."]
+script = ExtResource("9_separate")
+
+[node name="Character" parent="." instance=ExtResource("8_character")]
+
+[node name="ShadowGeometry" type="Node3D" parent="."]
+scale = Vector3(0.8, 0.85, 0.8)
+
+[node name="Bike" type="MeshInstance3D" parent="ShadowGeometry"]
+position = Vector3(0, 0.43, 0)
+cast_shadow = 3
+mesh = SubResource("BikeShadowMesh")
+
+[node name="Engine" type="AudioStreamPlayer" parent="."]
+stream = SubResource("EngineStream")
+volume_db = -15.0
+script = ExtResource("3_engine")
+
+[node name="TireEffects" type="Node3D" parent="."]
+script = ExtResource("4_effects")
