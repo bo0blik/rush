@@ -13,11 +13,11 @@ func _ready() -> void:
 	loop.loop_end = roundi(loop.get_length() * loop.mix_rate)
 	stream = loop
 	unit_size = 5.0
-	max_distance = 100.0
-	max_db = -7.0
+	max_distance = 70.0
+	max_db = -13.0
 	doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_PHYSICS_STEP
 	panning_strength = 1.25
-	playback_type = AudioServer.PLAYBACK_TYPE_STREAM
+	playback_type = AudioServer.PLAYBACK_TYPE_SAMPLE if OS.has_feature("web") else AudioServer.PLAYBACK_TYPE_STREAM
 
 
 func _process(_delta: float) -> void:
@@ -30,6 +30,6 @@ func _process(_delta: float) -> void:
 		return
 	var road_speed: float = float(vehicle.get("speed"))
 	pitch_scale = clampf(0.85 + road_speed / 75.0, 0.85, 1.45)
-	volume_db = clampf(-16.0 + road_speed * 0.35, -25.0, -7.0)
+	volume_db = clampf(-23.0 + road_speed * 0.3, -28.0, -13.0)
 	if not playing:
 		play(fposmod(float(vehicle.get("distance")) / 25.0, 2.0))
