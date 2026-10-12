@@ -82,6 +82,12 @@ func _run() -> void:
 	_check(not hud.corner_layout, "Classic centered HUD must remain selectable")
 	settings.toggle_hud()
 	_check(hud.corner_layout, "HUD shortcut must restore corner instruments")
+	settings._far_preset("Максимум деталей")
+	_check(settings.values.render_height == 1080.0 and effects.settings.far_detail == 2.5, "Distance preset must increase source and horizon resolution")
+	var distant_material: ShaderMaterial = settings.scenery[0].node.material_override
+	_check(is_equal_approx(float(distant_material.get_shader_parameter("far_bias")), 0.7), "Real-distance detail compensation must reach scenery materials")
+	settings._change("grain", 0.02, true)
+	_check(is_equal_approx(float(effects.effect.get_shader_parameter("grain")), 0.02), "Additional effects must reach the screen shader")
 	settings.values.bake = 2.0
 	settings._apply_textures()
 	var atlas: AtlasTexture = settings.atlases[0]

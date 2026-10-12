@@ -37,11 +37,14 @@ func apply_mode(index: int) -> void:
 	settings["exposure"] = 1.0
 	settings["gamma"] = 1.0
 	settings["blur_strength"] = 1.0
+	settings.merge({"far_detail": 1.0, "far_sharpen": 0.0, "sharpen": 0.0, "sharpen_limit": 0.05,
+		"horizon_line": 0.52, "bloom": 0.0, "bloom_threshold": 0.75, "aberration": 0.0,
+		"scanlines": 0.0, "grain": 0.0, "black_lift": 0.0, "highlight_rolloff": 0.0})
 	apply_settings()
 
 
 func apply_settings() -> void:
-	for parameter: String in ["steps", "dither", "contrast", "saturation", "warmth", "outline", "vignette", "stability", "exposure", "gamma"]:
+	for parameter: String in ["steps", "dither", "contrast", "saturation", "warmth", "outline", "vignette", "stability", "exposure", "gamma", "far_detail", "far_sharpen", "sharpen", "sharpen_limit", "horizon_line", "bloom", "bloom_threshold", "aberration", "scanlines", "grain", "black_lift", "highlight_rolloff"]:
 		effect.set_shader_parameter(parameter, settings[parameter])
 	_update_motion()
 	graphics_changed.emit(settings.name, mode_index, motion_enabled)
