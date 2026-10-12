@@ -1,0 +1,149 @@
+[gd_resource type="SpriteFrames" load_steps=31 format=3]
+
+[ext_resource type="Texture2D" path="res://demo/assets/plants_expansion_atlas.png" id="1"]
+
+[ext_resource type="Texture2D" path="res://demo/assets/buildings_expansion_atlas.png" id="2"]
+
+[sub_resource type="AtlasTexture" id="plants_0"]
+atlas = ExtResource("1")
+region = Rect2(16, 5, 276, 340)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_1"]
+atlas = ExtResource("1")
+region = Rect2(329, 4, 275, 341)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_2"]
+atlas = ExtResource("1")
+region = Rect2(645, 6, 276, 339)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_3"]
+atlas = ExtResource("1")
+region = Rect2(938, 12, 316, 335)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_4"]
+atlas = ExtResource("1")
+region = Rect2(8, 361, 307, 316)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_5"]
+atlas = ExtResource("1")
+region = Rect2(328, 356, 296, 321)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_6"]
+atlas = ExtResource("1")
+region = Rect2(651, 356, 272, 321)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_7"]
+atlas = ExtResource("1")
+region = Rect2(938, 380, 314, 297)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_8"]
+atlas = ExtResource("1")
+region = Rect2(10, 698, 325, 242)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_9"]
+atlas = ExtResource("1")
+region = Rect2(350, 695, 258, 247)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_10"]
+atlas = ExtResource("1")
+region = Rect2(644, 685, 260, 261)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_11"]
+atlas = ExtResource("1")
+region = Rect2(940, 712, 301, 234)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_12"]
+atlas = ExtResource("1")
+region = Rect2(3, 951, 321, 292)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_13"]
+atlas = ExtResource("1")
+region = Rect2(334, 952, 298, 291)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_14"]
+atlas = ExtResource("1")
+region = Rect2(636, 980, 298, 263)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="plants_15"]
+atlas = ExtResource("1")
+region = Rect2(955, 967, 292, 276)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_0"]
+atlas = ExtResource("2")
+region = Rect2(6, 59, 363, 315)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_1"]
+atlas = ExtResource("2")
+region = Rect2(373, 81, 353, 287)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_2"]
+atlas = ExtResource("2")
+region = Rect2(730, 77, 363, 290)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_3"]
+atlas = ExtResource("2")
+region = Rect2(1083, 72, 357, 297)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_4"]
+atlas = ExtResource("2")
+region = Rect2(5, 421, 363, 262)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_5"]
+atlas = ExtResource("2")
+region = Rect2(364, 389, 367, 293)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_6"]
+atlas = ExtResource("2")
+region = Rect2(726, 419, 355, 268)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_7"]
+atlas = ExtResource("2")
+region = Rect2(1079, 404, 365, 279)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_8"]
+atlas = ExtResource("2")
+region = Rect2(7, 683, 398, 346)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_9"]
+atlas = ExtResource("2")
+region = Rect2(419, 722, 289, 311)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_10"]
+atlas = ExtResource("2")
+region = Rect2(718, 753, 430, 287)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="buildings_11"]
+atlas = ExtResource("2")
+region = Rect2(1157, 698, 283, 343)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("plants_0")}, {"duration": 1.0, "texture": SubResource("plants_1")}, {"duration": 1.0, "texture": SubResource("plants_2")}, {"duration": 1.0, "texture": SubResource("plants_3")}, {"duration": 1.0, "texture": SubResource("plants_4")}, {"duration": 1.0, "texture": SubResource("plants_5")}, {"duration": 1.0, "texture": SubResource("plants_6")}, {"duration": 1.0, "texture": SubResource("plants_7")}, {"duration": 1.0, "texture": SubResource("plants_8")}, {"duration": 1.0, "texture": SubResource("plants_9")}, {"duration": 1.0, "texture": SubResource("plants_10")}, {"duration": 1.0, "texture": SubResource("plants_11")}, {"duration": 1.0, "texture": SubResource("plants_12")}, {"duration": 1.0, "texture": SubResource("plants_13")}, {"duration": 1.0, "texture": SubResource("plants_14")}, {"duration": 1.0, "texture": SubResource("plants_15")}], "loop": false, "name": &"plants", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("buildings_0")}, {"duration": 1.0, "texture": SubResource("buildings_1")}, {"duration": 1.0, "texture": SubResource("buildings_2")}, {"duration": 1.0, "texture": SubResource("buildings_3")}, {"duration": 1.0, "texture": SubResource("buildings_4")}, {"duration": 1.0, "texture": SubResource("buildings_5")}, {"duration": 1.0, "texture": SubResource("buildings_6")}, {"duration": 1.0, "texture": SubResource("buildings_7")}, {"duration": 1.0, "texture": SubResource("buildings_8")}, {"duration": 1.0, "texture": SubResource("buildings_9")}, {"duration": 1.0, "texture": SubResource("buildings_10")}, {"duration": 1.0, "texture": SubResource("buildings_11")}], "loop": false, "name": &"buildings", "speed": 1.0}]

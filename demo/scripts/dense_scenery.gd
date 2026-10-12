@@ -3,6 +3,7 @@ extends RefCounted
 ## Seeded ecological clusters, batched by road section for visibility culling.
 
 const FRAMES: SpriteFrames = preload("res://demo/resources/scenery_frames.tres")
+const EXTRA_FRAMES: SpriteFrames = preload("res://demo/resources/scenery_expansion.tres")
 const SHADER = preload("res://demo/shaders/scenery_billboard.gdshader")
 var track: Path3D
 var world: Node3D
@@ -21,6 +22,9 @@ func build(road: Path3D, parent: Node3D) -> void:
 	for animation: StringName in [&"forest", &"props", &"rural"]:
 		for i in range(FRAMES.get_frame_count(animation)):
 			textures.append(FRAMES.get_frame_texture(animation, i))
+	for animation: StringName in [&"plants", &"buildings"]:
+		for i in range(EXTRA_FRAMES.get_frame_count(animation)):
+			textures.append(EXTRA_FRAMES.get_frame_texture(animation, i))
 	var length: float = track.get("length")
 	for i in range(5):
 		var frame: Transform3D = _frame(62.0 + i * length / 5.0)
@@ -29,6 +33,7 @@ func build(road: Path3D, parent: Node3D) -> void:
 		var frame: Transform3D = _frame(35.0 + i * length / 6.0)
 		clearings.append(frame.origin - frame.basis.x * 10.5)
 	_build_rural()
+	_build_expansion()
 	for herd in range(4):
 		var along: float = [740.0, 860.0, 1040.0, 1220.0][herd]
 		var frame: Transform3D = _frame(along)
@@ -53,6 +58,8 @@ func build(road: Path3D, parent: Node3D) -> void:
 				if along > 70.0 and along < 650.0 and side < 0.0 and layer < 3:
 					kind = 3 if rng.randf() < 0.65 else 4
 				var height: float = rng.randf_range(6.5, 11.0) if layer == 0 else rng.randf_range(11.0, 22.0)
+				if rng.randf() < 0.35:
+					kind = 28 + rng.randi_range(0, 5)
 				var offset: float = 9.0 + layer * 13.5 + rng.randf_range(0.0, 10.0)
 				_add(kind, along, side * offset, height, 0.065, true)
 			# Different ground-cover populations distinguish each part of the loop.
@@ -69,6 +76,9 @@ func build(road: Path3D, parent: Node3D) -> void:
 						kind = 11
 					var height: float = rng.randf_range(0.35, 0.85) if kind == 8 or kind == 9 else rng.randf_range(0.85, 1.6)
 					_add(kind, clump_distance + rng.randf_range(-1.4, 1.4), offset + rng.randf_range(-1.1, 1.1), height, 0.045)
+				if cluster == 0:
+					var plant: int = [36, 37, 38, 39, 42, 43][(zone + i) % 6]
+					_add(plant, clump_distance, offset, rng.randf_range(1.2, 1.7) if plant in [38, 43] else rng.randf_range(0.45, 1.0), 0.035)
 			if i % 4 == 0:
 				var kind: int = [12, 13, 14, 7][rng.randi_range(0, 3)]
 				_add(kind, along, side * rng.randf_range(7.0, 17.0), rng.randf_range(0.65, 1.55), 0.0)
@@ -91,7 +101,8 @@ func _frame(along: float) -> Transform3D:
 func _add(kind: int, along: float, offset: float, height: float, wind: float, tree: bool = false) -> void:
 	var frame: Transform3D = _frame(along)
 	var origin: Vector3 = frame.origin + frame.basis.x * offset
-	if kind < 16 or kind == 24 or kind == 25:
+	var extra_plant: bool = kind >= 28 and kind < 44
+	if kind < 16 or kind == 24 or kind == 25 or extra_plant:
 		for clearing: Vector3 in clearings:
 			if Vector2(origin.x - clearing.x, origin.z - clearing.z).length() < (8.0 if tree else 4.0):
 				return
@@ -99,7 +110,7 @@ func _add(kind: int, along: float, offset: float, height: float, wind: float, tr
 	var closest: Vector3 = track.curve.get_closest_point(origin)
 	if Vector2(origin.x - closest.x, origin.z - closest.z).length() < float(track.get("road_width")) * 0.5 + 1.3:
 		return
-	if along > 70.0 and along < 650.0 and offset > 0.0 and kind < 20:
+	if along > 70.0 and along < 650.0 and offset > 0.0 and (kind < 20 or extra_plant):
 		var river: Vector2 = track.call("river_edges", along)
 		if offset > river.x - 2.0 and offset < river.y + 2.0:
 			return
@@ -108,10 +119,15 @@ func _add(kind: int, along: float, offset: float, height: float, wind: float, tr
 	origin.y += height * 0.5
 	var section: int = floori(fposmod(along, float(track.get("length"))) / 95.0)
 	var key: String = "%02d_%02d" % [section, kind]
+	var batch_kind: int = kind
+	if extra_plant:
+		batch_kind = 28 if tree else 36
+		key = "%02d_extra_%s" % [section, "trees" if tree else "plants"]
 	if not batches.has(key):
-		batches[key] = {"kind": kind, "tree": tree, "items": []}
+		batches[key] = {"kind": batch_kind, "tree": tree, "items": []}
 	var shade: float = rng.randf_range(0.88, 1.08)
-	batches[key].items.append({"origin": origin, "size": Vector2(width, height), "phase": rng.randf() * TAU, "wind": wind, "color": Color(shade, shade * rng.randf_range(0.97, 1.02), shade * 0.96)})
+	var phase: float = rng.randf() * 6.0 + (float(kind - 28) * TAU if extra_plant else 0.0)
+	batches[key].items.append({"origin": origin, "size": Vector2(width, height), "phase": phase, "wind": wind, "color": Color(shade, shade * rng.randf_range(0.97, 1.02), shade * 0.96)})
 	if tree:
 		tree_count += 1
 	else:
@@ -132,6 +148,13 @@ func _build_batches() -> void:
 			material.set_shader_parameter("atlas", texture.atlas)
 			material.set_shader_parameter("atlas_size", Vector2(texture.atlas.get_size()))
 			material.set_shader_parameter("region", Vector4(texture.region.position.x, texture.region.position.y, texture.region.size.x, texture.region.size.y))
+			if kind >= 28 and kind < 44:
+				var regions := PackedVector4Array()
+				for plant in range(16):
+					var rect: Rect2 = textures[28 + plant].region
+					regions.append(Vector4(rect.position.x, rect.position.y, rect.size.x, rect.size.y))
+				material.set_shader_parameter("extended_atlas", true)
+				material.set_shader_parameter("plant_regions", regions)
 			material.set_shader_parameter("fade_start", 760.0 if group.tree else 480.0 if kind >= 24 else 360.0)
 			material.set_shader_parameter("fade_end", 900.0 if group.tree else 600.0 if kind >= 24 else 450.0)
 			materials[kind] = material
@@ -253,6 +276,31 @@ func _architecture(name: String, kind: int, along: float, offset: float, height:
 		shadow.position.y = height * 0.14
 		var tower := _box(node, Vector3(0, height * 0.45, 0), Vector3(1.9, height * 0.85, 1.9), Color.WHITE)
 		tower.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+
+
+func _build_expansion() -> void:
+	var names: Array[String] = ["CarvedCottage", "PlasterCottage", "BrickHouse", "VillageApartments", "VillageClinic", "VillageSchool", "VillageShop", "TimberHayBarn", "VillageForge", "GardenGazebo", "RiverWatermill", "WaysideChapel"]
+	var heights: Array[float] = [7.5, 8.0, 9.0, 12.0, 9.0, 10.0, 6.5, 10.0, 8.0, 4.5, 10.5, 12.0]
+	for i in range(names.size()):
+		var along: float = 120.0 + i * 112.0
+		var offset: float = -30.0 if i < 6 or i == 8 or i == 11 else 30.0
+		if i == 10:
+			along = 315.0
+			var bank: Vector2 = track.call("river_edges", along)
+			offset = bank.y + 5.0
+		var frame: Transform3D = _frame(along)
+		var point: Vector3 = frame.origin + frame.basis.x * offset
+		var closest: Vector3 = track.curve.get_closest_point(point)
+		if Vector2(point.x - closest.x, point.z - closest.z).length() < 14.0:
+			continue
+		_architecture(names[i], 44 + i, along, offset, heights[i])
+		for orchard in range(2):
+			_add(34 + orchard, along + 12.0 + orchard * 7.0, offset, 6.5 if orchard == 0 else 5.0, 0.03, true)
+	for i in range(40):
+		var along: float = 110.0 + i * 12.0
+		var banks: Vector2 = track.call("river_edges", along)
+		for offset: float in [banks.x - 2.8, banks.y + 2.8]:
+			_add(40 + i % 2, along, offset, rng.randf_range(1.5, 2.2), 0.035)
 
 
 func _build_rural() -> void:
